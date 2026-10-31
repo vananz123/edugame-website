@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "EduGame Studio — Biến bài giảng thành trải nghiệm học tập tương tác",
+    "description": "EduGame Studio: ứng dụng Windows giúp giáo viên tạo game giáo dục từ giáo án, AI hỗ trợ soạn câu hỏi, hoạt động offline ngay trên lớp."
+  },
+  "nav": {
+    "about": "Giới thiệu",
+    "product": "EduGame Studio",
+    "games": "Thư viện game",
+    "features": "Tính năng",
+    "download": "Tải xuống"
+  },
+  "common": {
+    "download": "Tải EduGame Studio",
+    "explore": "Khám phá ứng dụng",
+    "learnMore": "Tìm hiểu thêm",
+    "language": "Ngôn ngữ",
+    "placeholder": "Nội dung mẫu — sẽ được cập nhật",
+    "menu": "Mở menu"
+  },
+  "hero": {
+    "badge": "Ứng dụng Windows dành cho giáo viên",
+    "title": "Biến bài giảng thành trải nghiệm học tập tương tác",
+    "description": "EduGame Studio giúp giáo viên tạo game giáo dục từ giáo án và học liệu, với AI hỗ trợ soạn câu hỏi và hoạt động offline ngay trên lớp.",
+    "ctaPrimary": "Tải EduGame Studio",
+    "ctaSecondary": "Khám phá ứng dụng",
+    "screenshotAlt": "Ảnh chụp màn hình ứng dụng EduGame Studio (placeholder)"
+  },
+  "about": {
+    "heading": "Người sáng tạo",
+    "role": "Nhà giáo dục STEM & AI · Lập trình viên phần mềm",
+    "name": "[Tên của bạn]",
+    "bio": "[Placeholder: Giới thiệu ngắn về nền tảng và kinh nghiệm của bạn trong giáo dục STEM/AI và phát triển phần mềm.]",
+    "motivation": "[Placeholder: Động lực xây dựng EduGame Studio — mong muốn giúp giáo viên tạo bài học tương tác dễ dàng hơn.]",
+    "github": "GitHub",
+    "contact": "Liên hệ",
+    "email": "[email@example.com]"
+  },
+  "product": {
+    "heading": "EduGame Studio là gì?",
+    "description": "Ứng dụng desktop Windows giúp giáo viên tạo game giáo dục từ bài giảng một cách nhanh chóng.",
+    "points": [
+      "Tạo game giáo dục từ giáo án và học liệu",
+      "AI hỗ trợ sinh câu hỏi",
+      "AI cục bộ, ưu tiên hoạt động offline",
+      "Ứng dụng desktop Windows",
+      "Trình chiếu trên lớp và chơi tương tác"
+    ]
+  },
+  "games": {
+    "heading": "Thư viện game",
+    "description": "Năm loại game hiện có trong EduGame Studio. Dễ dàng bổ sung loại game mới.",
+    "screenshotPlaceholder": "Ảnh chụp màn hình (placeholder)",
+    "demo": "Video demo",
+    "items": [
+      { "title": "[Game 1]", "description": "[Mô tả placeholder cho loại game thứ nhất.]" },
+      { "title": "[Game 2]", "description": "[Mô tả placeholder cho loại game thứ hai.]" },
+      { "title": "[Game 3]", "description": "[Mô tả placeholder cho loại game thứ ba.]" },
+      { "title": "[Game 4]", "description": "[Mô tả placeholder cho loại game thứ tư.]" },
+      { "title": "[Game 5]", "description": "[Mô tả placeholder cho loại game thứ năm.]" }
+    ]
+  },
+  "features": {
+    "heading": "Tính năng nổi bật",
+    "items": [
+      { "title": "Tạo game từ bài giảng", "description": "Biến giáo án và học liệu thành game giáo dục." },
+      { "title": "Soạn câu hỏi thủ công & AI", "description": "Tự soạn câu hỏi hoặc để AI gợi ý nhanh chóng." },
+      { "title": "Chơi tương tác trên lớp", "description": "Tổ chức gameplay tương tác, trình chiếu trực tiếp." },
+      { "title": "Hỗ trợ AI cục bộ", "description": "Chạy AI ngay trên máy, không phụ thuộc đám mây." },
+      { "title": "Thiết kế ưu tiên offline", "description": "Hoạt động ổn định ngay cả khi không có mạng." },
+      { "title": "Quy trình thân thiện với giáo viên", "description": "Thao tác đơn giản, phù hợp giáo viên không chuyên kỹ thuật." }
+    ]
+  },
+  "download": {
+    "heading": "Tải xuống",
+    "description": "Tải EduGame Studio cho Windows.",
+    "cardTitle": "EduGame Studio cho Windows",
+    "button": "Tải cho Windows",
+    "versionLabel": "Phiên bản",
+    "version": "[chưa cập nhật]",
+    "fileSizeLabel": "Dung lượng",
+    "fileSize": "[chưa cập nhật]",
+    "releaseDateLabel": "Ngày phát hành",
+    "releaseDate": "[chưa cập nhật]",
+    "requirementsLabel": "Cấu hình yêu cầu",
+    "requirements": "[Placeholder: Windows 10/11 64-bit, dung lượng trống, RAM...]",
+    "releaseNotesLabel": "Ghi chú phát hành",
+    "releaseNotes": "[Placeholder: nội dung changelog của phiên bản.]",
+    "trialLabel": "Bản dùng thử / Demo",
+    "trial": "[Placeholder: thông tin bản dùng thử hoặc demo.]",
+    "trialButton": "Xem demo"
+  },
+  "footer": {
+    "tagline": "EduGame Studio — Công cụ tạo game giáo dục cho giáo viên.",
+    "productHeading": "Sản phẩm",
+    "personalHeading": "Cá nhân",
+    "contactHeading": "Liên hệ",
+    "rights": "© {year} [Tên của bạn]. Bảo lưu mọi quyền.",
+    "about": "Giới thiệu",
+    "features": "Tính năng",
+    "download": "Tải xuống",
+    "github": "GitHub",
+    "email": "Email"
+  }
+}
