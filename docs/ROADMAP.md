@@ -93,7 +93,7 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ Trang chủ mới: hero 2 cột + stats + highlights + preview game/tính năng + CTA
 - ✅ `lint` + `typecheck` + `build` pass (24 trang); browser test `/vi`, `/en` và 4 trang con: 200, nav active đúng, canonical đúng, chuyển ngôn ngữ giữ đúng route (kể cả `/download`), console sạch
 - ✅ Sửa lỗi `<html lang>` không cập nhật khi chuyển ngôn ngữ client-side (`LocaleLangSync`)
-- ⬜ Commit + push code Phase 7 (chờ duyệt)
+- ✅ Commit + push code Phase 7 — `0f504d3` trên `origin/main`
 
 ## Việc cần chủ dự án cung cấp / quyết định
 
@@ -108,5 +108,5 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Duyệt commit + push code Phase 3/4 | Phase 3/4 | ✅ đã commit `cb419ed` + `bccc684`, đã push `origin/main` |
 | Duyệt + áp migration `0003_guides.sql` | Phase 6 | ✅ đã duyệt + đã áp dụng |
 | Duyệt commit + push code Phase 6 | Phase 6 | ✅ `7555931`, đã push `origin/main` |
-| Duyệt commit + push code Phase 7 | Phase 7 | ⬜ chờ duyệt |
+| Duyệt commit + push code Phase 7 | Phase 7 | ✅ `0f504d3`, đã push `origin/main` |
 | Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | ⬜ (guide test đã dọn, DB trống) |
