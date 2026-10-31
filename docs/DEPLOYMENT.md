@@ -56,4 +56,4 @@
 
 ## 7. Trạng thái
 
-- ⬜ Chưa deploy (tính tới 2026-10-31). Code Phase 2–5 đã commit + push (mới nhất `ef71e8e`); code Phase 6 (Docs) đã test xong nhưng **chờ duyệt commit**. DB đã sẵn sàng (schema đầy đủ + admin + đã test CRUD), chỉ còn điền nội dung thật rồi deploy.
+- ⬜ Chưa deploy (tính tới 2026-10-31). Code Phase 2–6 đã commit + push (mới nhất `7555931`). DB đã sẵn sàng (schema đầy đủ + admin + đã test CRUD), chỉ còn điền nội dung thật rồi deploy.

@@ -31,7 +31,7 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 ## 4. Trạng thái hiện tại (2026-10-31)
 
 **Đã xong:**
-- Git repo + remote; commit `7772e28` (`.gitignore`), `903fd57` (Phase 2 + docs), `cb419ed` (Phase 3–4), `bccc684` (dọn media + Toaster + docs), `ef71e8e` (đồng bộ docs trạng thái), đã push `origin/main`.
+- Git repo + remote; commit `7772e28` (`.gitignore`), `903fd57` (Phase 2 + docs), `cb419ed` (Phase 3–4), `bccc684` (dọn media + Toaster + docs), `ef71e8e` (đồng bộ docs trạng thái), `7555931` (Phase 6 — docs/guides), đã push `origin/main`.
 - `.env.local` với Supabase URL + publishable key (đã kiểm tra hợp lệ), đã gitignore.
 - Supabase project sống (Auth/Storage OK).
 - Bộ tài liệu `docs/` đầy đủ.
@@ -45,16 +45,14 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 - Build/lint/typecheck pass (16 route).
 
 **Chưa làm / blocker:**
-- Code Phase 6 (docs/guides) **chưa commit** (chờ chủ dự án duyệt).
 - Chưa deploy Vercel (Phase 5).
 - Chưa có thông tin cá nhân thật, asset 5 game, link tải thật, nội dung guide thật (đang chờ chủ dự án — xem ROADMAP).
 
 ## 5. Việc cần làm tiếp (theo thứ tự)
 
-1. **Duyệt commit + push** code Phase 6 (kèm docs cập nhật).
-2. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin`.
-3. Viết guide thật (Markdown + ảnh + video) qua `/admin/guides`.
-4. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
+1. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin`.
+2. Viết guide thật (Markdown + ảnh + video) qua `/admin/guides`.
+3. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
 
 Chi tiết từng giai đoạn: [ROADMAP.md](./ROADMAP.md).
 

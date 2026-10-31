@@ -82,7 +82,7 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ Migration `0003_guides.sql` **đã áp dụng** (bảng `guides` + RLS + index tồn tại, REST 200)
 - ✅ Browser test đầy đủ: tạo + publish guide (Markdown vi/en + video YouTube) → `/vi/docs`, `/en/docs` render; sửa title → public cập nhật (revalidate); upload cover → hiện trên trang chi tiết; xóa guide → public 404, storage object + row `media` được dọn sạch (kiểm tra `media` = 0)
 - ✅ Dọn guide test sau khi kiểm thử; DB guides = 0, media = 0 (nội dung thật chờ chủ dự án)
-- ⬜ Commit + push code Phase 6 (chờ duyệt)
+- ✅ Commit + push code Phase 6 — `7555931` trên `origin/main`
 
 ## Việc cần chủ dự án cung cấp / quyết định
 
@@ -96,5 +96,5 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Duyệt migration SQL trước khi áp dụng | Phase 3 | ✅ đã duyệt + đã áp dụng |
 | Duyệt commit + push code Phase 3/4 | Phase 3/4 | ✅ đã commit `cb419ed` + `bccc684`, đã push `origin/main` |
 | Duyệt + áp migration `0003_guides.sql` | Phase 6 | ✅ đã duyệt + đã áp dụng |
-| Duyệt commit + push code Phase 6 | Phase 6 | ⬜ chờ duyệt |
+| Duyệt commit + push code Phase 6 | Phase 6 | ✅ `7555931`, đã push `origin/main` |
 | Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | ⬜ (guide test đã dọn, DB trống) |
