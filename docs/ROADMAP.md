@@ -64,7 +64,7 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ Browser: `/vi` 200, `/admin` → 307 → `/admin/login`, login render sạch, console sạch
 - ✅ Browser admin (đã áp migration + admin): login OK; overview stats đúng; content sửa+publish→public cập nhật (revalidate); games create/reorder/delete + upload screenshot (Storage public read) + Remove; downloads save→public cập nhật; settings render; console sạch
 - ✅ Media cleanup: Remove xóa storage+media; deleteGame/upload-thay-thế tự dọn ảnh cũ; toaster top-right không che Save
-- ⬜ Commit + push bản sửa follow-up (media cleanup, toaster, docs) — chờ chủ dự án duyệt
+- ✅ Commit + push bản sửa follow-up (media cleanup, toaster, docs) — `bccc684`
 - ⬜ Dọn 2 orphan media object/row còn lại từ lúc test (liệt kê ở HANDOVER §4)
 - ⬜ Kiểm tra không lộ secret (đã grep src: không có service-role/key)
 - ⬜ Deploy Vercel + cấu hình env production + Supabase redirect URLs (xem DEPLOYMENT.md)
@@ -80,4 +80,4 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Tài khoản admin Supabase Auth (email) + insert `admin_users` | Phase 4 | ✅ `dovanan.bth2017@gmail.com` |
 | Tài khoản Vercel + tên miền mong muốn | Phase 5 | ⬜ |
 | Duyệt migration SQL trước khi áp dụng | Phase 3 | ✅ đã duyệt + đã áp dụng |
-| Duyệt commit + push code Phase 3/4 | Phase 3/4 | ✅ đã commit `cb419ed` + push `origin/main` |
+| Duyệt commit + push code Phase 3/4 | Phase 3/4 | ✅ đã commit `cb419ed` + `bccc684`, đã push `origin/main` |

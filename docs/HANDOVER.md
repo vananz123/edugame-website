@@ -31,7 +31,7 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 ## 4. Trạng thái hiện tại (2026-10-31)
 
 **Đã xong:**
-- Git repo + remote; commit `7772e28` (`.gitignore`), `903fd57` (Phase 2 + docs), `cb419ed` (Phase 3–4), đã push `origin/main`.
+- Git repo + remote; commit `7772e28` (`.gitignore`), `903fd57` (Phase 2 + docs), `cb419ed` (Phase 3–4), `bccc684` (dọn media + Toaster + docs), đã push `origin/main`.
 - `.env.local` với Supabase URL + publishable key (đã kiểm tra hợp lệ), đã gitignore.
 - Supabase project sống (Auth/Storage OK).
 - Bộ tài liệu `docs/` đầy đủ.
@@ -42,17 +42,15 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 - Build/lint/typecheck pass (13 route).
 
 **Chưa làm / blocker:**
-- Bản sửa follow-up (dọn media khi xóa/thay ảnh, Toaster top-right, cập nhật docs) **chưa commit** (chờ chủ dự án duyệt).
 - Còn 2 orphan media row + object từ lúc test (do lần test upload đầu chưa có cleanup): `games/b18935c8-444d-4413-bcb3-20abf6f62a0a.png`, `games/45792de3-80c8-40ec-b017-8f8acf24ab23.png` — xóa thủ công bằng SQL + Storage dashboard.
 - Chưa deploy Vercel (Phase 5).
 - Chưa có thông tin cá nhân thật, asset 5 game, link tải thật (đang chờ chủ dự án — xem ROADMAP).
 
 ## 5. Việc cần làm tiếp (theo thứ tự)
 
-1. **Duyệt commit + push** bản sửa follow-up (dọn media, Toaster, docs).
-2. **Dọn orphan media** còn lại từ lúc test (2 path ở §4): xóa object trong Storage bucket `media` + xóa row tương ứng ở bảng `media`.
-3. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin`.
-4. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
+1. **Dọn orphan media** còn lại từ lúc test (2 path ở §4): xóa object trong Storage bucket `media` + xóa row tương ứng ở bảng `media`.
+2. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin`.
+3. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
 
 Chi tiết từng giai đoạn: [ROADMAP.md](./ROADMAP.md).
 
