@@ -1,12 +1,8 @@
-import { useTranslations } from "next-intl";
 import { Code2, Mail, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { AboutData } from "@/lib/data/types";
 
-const GITHUB_URL = "https://github.com/vananz123";
-
-export function About() {
-  const t = useTranslations("about");
-
+export function About({ data }: { data: AboutData }) {
   return (
     <section id="about" className="border-t border-border/60 bg-muted/20">
       <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6">
@@ -16,13 +12,13 @@ export function About() {
           </div>
           <div>
             <h2 className="text-3xl font-semibold tracking-tight">
-              {t("heading")}
+              {data.heading}
             </h2>
-            <p className="mt-2 text-lg font-medium">{t("name")}</p>
-            <p className="mt-1 text-sm text-primary">{t("role")}</p>
-            <p className="mt-6 max-w-2xl text-muted-foreground">{t("bio")}</p>
+            <p className="mt-2 text-lg font-medium">{data.name}</p>
+            <p className="mt-1 text-sm text-primary">{data.role}</p>
+            <p className="mt-6 max-w-2xl text-muted-foreground">{data.bio}</p>
             <p className="mt-4 max-w-2xl text-muted-foreground">
-              {t("motivation")}
+              {data.motivation}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
@@ -30,22 +26,22 @@ export function About() {
                 nativeButton={false}
                 render={
                   <a
-                    href={GITHUB_URL}
+                    href={data.github}
                     target="_blank"
                     rel="noopener noreferrer"
                   />
                 }
               >
                 <Code2 className="size-4" />
-                {t("github")}
+                {data.githubLabel}
               </Button>
               <Button
                 variant="outline"
                 nativeButton={false}
-                render={<a href={`mailto:${t("email")}`} />}
+                render={<a href={`mailto:${data.email}`} />}
               >
                 <Mail className="size-4" />
-                {t("contact")}
+                {data.contactLabel}
               </Button>
             </div>
           </div>

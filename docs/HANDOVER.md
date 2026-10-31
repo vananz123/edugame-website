@@ -13,7 +13,7 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 | GitHub | `vananz123/edugame-website` | ✅ repo tồn tại, đã push `main` | Cần cấp quyền collaborator cho người mới |
 | Supabase | project `kosieqrqabcrvmvzbemt` | ✅ hoạt động | Cần invite thành viên vào organization/project |
 | Vercel | — | ⬜ chưa tạo | Tạo khi deploy (Phase 5) |
-| Admin Auth (Supabase) | email admin | ⬜ chưa tạo | Tạo ở Phase 4 |
+| Admin Auth (Supabase) | email admin | ⬜ chưa tạo | Tạo thủ công: Auth user + insert `admin_users` (ENVIRONMENT.md §3) |
 
 > Mật khẩu / key **không** ghi trong tài liệu. Bàn giao qua kênh an toàn (password manager, invite trực tiếp).
 
@@ -31,25 +31,29 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 ## 4. Trạng thái hiện tại (2026-10-31)
 
 **Đã xong:**
-- Git repo + remote, commit đầu `7772e28` (`.gitignore`), push `origin/main`.
-- `.env.local` với Supabase URL + publishable key (đã kiểm tra hợp lệ).
-- Supabase project sống (Auth/Storage OK), schema `public` còn trống.
+- Git repo + remote; commit `7772e28` (`.gitignore`) + `903fd57` (Phase 2 + docs), đã push `origin/main`.
+- `.env.local` với Supabase URL + publishable key (đã kiểm tra hợp lệ), đã gitignore.
+- Supabase project sống (Auth/Storage OK).
 - Bộ tài liệu `docs/` đầy đủ.
-- **Phase 2 xong**: Next.js 16 + landing song ngữ `/vi`,`/en` (đủ 8 section), SEO/sitemap/robots, đã test browser (switcher + mobile menu), build/lint/typecheck pass. Node.js v26 đã cài.
+- **Phase 2**: Next.js 16 + landing song ngữ `/vi`,`/en` (đủ 8 section), SEO/sitemap/robots, đã test browser, build/lint/typecheck pass.
+- **Phase 3 (code)**: migration `0001_init.sql` (schema + RLS + storage `media`) + `0002_seed.sql` (placeholder); Supabase clients (public/server/browser); `getPublicData()` đọc published + fallback `messages`.
+- **Phase 4 (code)**: `/admin/login` (Auth), guard server-side `requireAdmin()` cho route group `(dashboard)` + mọi server action; overview/content/games/downloads/settings; upload screenshot; draft/publish + revalidate. Build/lint/typecheck pass; browser xác nhận `/vi` 200, `/admin`→`/admin/login`, login render sạch.
 
-**Chưa làm:**
-- Code Phase 2 **chưa commit** (chờ chủ dự án duyệt).
-- Chưa có schema/migration (Phase 3).
-- Chưa có Admin dashboard (Phase 4).
-- Chưa deploy (Phase 5).
+**Chưa làm / blocker:**
+- Code Phase 3/4 **chưa commit** (chờ chủ dự án duyệt).
+- Migration **chưa áp dụng** → schema `public` vẫn trống (chờ duyệt SQL + chạy SQL Editor).
+- Tài khoản admin **chưa tạo** (Auth user + insert `admin_users`) → chưa test CRUD/upload/publish trong browser.
+- Chưa deploy Vercel (Phase 5).
 - Chưa có thông tin cá nhân thật, asset 5 game, link tải thật (đang chờ chủ dự án — xem ROADMAP).
 
 ## 5. Việc cần làm tiếp (theo thứ tự)
 
-1. Khởi tạo Next.js + stack, dựng landing song ngữ (Phase 2).
-2. Thiết kế + duyệt migration, bật RLS/Storage policy (Phase 3).
-3. Admin dashboard + auth server-side (Phase 4).
-4. Kiểm thử + deploy Vercel (Phase 5).
+1. **Duyệt + áp migration** `0001_init.sql` rồi `0002_seed.sql` trong Supabase SQL Editor (ENVIRONMENT.md §3).
+2. **Tạo tài khoản admin**: Authentication user + `insert into admin_users(email)` (ENVIRONMENT.md §3).
+3. **Test admin**: đăng nhập `/admin/login`, CRUD content/games/downloads, upload screenshot, publish → kiểm tra trang public cập nhật.
+4. **Duyệt commit + push** code Phase 3/4 (kèm docs).
+5. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard.
+6. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
 
 Chi tiết từng giai đoạn: [ROADMAP.md](./ROADMAP.md).
 

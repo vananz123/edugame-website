@@ -10,9 +10,9 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 |---|---|---|
 | Phase 1 | Kiểm tra môi trường (Git, Supabase, stack) | ✅ xong |
 | Phase 2 | Website công khai song ngữ | ✅ xong |
-| Phase 3 | Supabase schema + RLS + data access | ⬜ |
-| Phase 4 | Admin dashboard | ⬜ |
-| Phase 5 | Kiểm thử tổng thể + triển khai | ⬜ |
+| Phase 3 | Supabase schema + RLS + data access | ✅ code xong (migration chờ duyệt + áp dụng) |
+| Phase 4 | Admin dashboard | ✅ code xong (chờ DB để test CRUD) |
+| Phase 5 | Kiểm thử tổng thể + triển khai | 🔄 build/lint/typecheck pass; chưa deploy |
 
 ## Phase 1 — Environment Inspection
 
@@ -37,28 +37,32 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 
 ## Phase 3 — Supabase
 
-- ⬜ Thiết kế schema tối giản: `site_content`, `games`, `downloads`, `media` (xem ARCHITECTURE.md)
-- ⬜ Viết migration SQL có version trong `supabase/migrations/`
-- ⬜ Bật RLS: public chỉ đọc nội dung published; admin ghi
-- ⬜ Storage bucket `media` + policy chỉ admin upload
-- ⬜ Data access functions (server-only) + kết nối trang public với nội dung published
-- ⬜ Seed nội dung placeholder (không bịa thông tin cá nhân / link tải thật)
+- ✅ Schema tối giản: `site_content`, `games`, `downloads`, `media` + `admin_users` (xem ARCHITECTURE.md)
+- ✅ Migration SQL có version: `supabase/migrations/0001_init.sql` (schema + RLS + storage), `0002_seed.sql` (placeholder)
+- ✅ RLS: public chỉ đọc nội dung published; admin ghi qua `is_admin()` (SECURITY DEFINER, allowlist `admin_users`)
+- ✅ Storage bucket `media` public read + policy insert/update/delete chỉ admin
+- ✅ Data access server-only (`src/lib/data/public.ts`) + trang public đọc nội dung published, fallback về `messages` khi DB trống
+- ✅ Seed placeholder (không bịa thông tin cá nhân / link tải thật)
+- ⛔ **Migration CHƯA áp dụng** — cần chủ dự duyệt SQL rồi chạy trong Supabase SQL Editor (xem ENVIRONMENT.md §3)
 
 ## Phase 4 — Admin Dashboard
 
-- ⬜ `/admin/login` — Supabase Auth (email + password)
-- ⬜ Bảo vệ server-side mọi route `/admin/*` và server actions (không chỉ client)
-- ⬜ `/admin/content` — sửa hero, intro, overview, features, contact (vi + en)
-- ⬜ `/admin/games` — CRUD + sắp xếp + publish/ẩn + upload screenshot
-- ⬜ `/admin/downloads` — version, URL, file size, release notes, trial
-- ⬜ `/admin/settings` — link mạng xã hội, cấu hình chung
-- ⬜ Media management: upload/preview/replace/delete, validate type + size
-- ⬜ Draft → preview → publish + revalidate trang public
+- ✅ `/admin/login` — Supabase Auth (email + password), Server Action + `useActionState`
+- ✅ Bảo vệ server-side mọi route `/admin/*` (route group `(dashboard)` gọi `requireAdmin()`) và mọi server action
+- ✅ `/admin` — overview thống kê published/total + quick links
+- ✅ `/admin/content` — editor song ngữ hero/about/product/features/contact (schema-driven), draft/publish
+- ✅ `/admin/games` — CRUD + sắp xếp (move up/down) + publish/ẩn + upload screenshot (validate type + size ≤5MB)
+- ✅ `/admin/downloads` — version, URL, file size, release date, requirements, release notes, trial
+- ✅ `/admin/settings` — contact (GitHub/email) + thông tin tài khoản admin
+- ✅ Media upload qua Storage + ghi row `media`; preview trong form game
+- ✅ Draft → publish + `revalidatePath("/vi")`/`("/en")` sau mỗi lần lưu
+- ⛔ **Chưa test CRUD trong browser** — cần áp migration + tạo tài khoản admin trước
 
 ## Phase 5 — Final Verification & Deployment
 
-- ⬜ `lint` + `tsc --noEmit` + `next build` pass
-- ⬜ Test route `/vi`, `/en`, admin auth, CRUD, upload, publish
+- ✅ `lint` + `tsc --noEmit` + `next build` pass (13 routes, admin đủ)
+- ✅ Browser: `/vi` 200, `/admin` → 307 → `/admin/login`, login render sạch, console sạch
+- ⬜ Test admin auth + CRUD + upload + publish (chờ DB)
 - ⬜ Kiểm tra không lộ secret
 - ⬜ Deploy Vercel + cấu hình env production + Supabase redirect URLs (xem DEPLOYMENT.md)
 - ⬜ Cập nhật HANDOVER.md với trạng thái cuối
@@ -70,6 +74,7 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Thông tin cá nhân thật (tên, bio, link GitHub, contact) | Phase 2 | ⬜ đang dùng placeholder |
 | Tên + mô tả + screenshot 5 game types | Phase 2/3 | ⬜ |
 | Link tải Windows thật + version + release notes | Phase 2/3 | ⬜ (brief cấm bịa) |
-| Tài khoản admin Supabase Auth (email) | Phase 4 | ⬜ |
+| Tài khoản admin Supabase Auth (email) + insert `admin_users` | Phase 4 | ⬜ **blocker test CRUD** |
 | Tài khoản Vercel + tên miền mong muốn | Phase 5 | ⬜ |
-| Duyệt migration SQL trước khi áp dụng | Phase 3 | ⬜ |
+| Duyệt migration SQL trước khi áp dụng | Phase 3 | ⬜ **blocker** — SQL đã sẵn sàng trong `supabase/migrations/` |
+| Duyệt commit + push code Phase 3/4 | Phase 3/4 | ⬜ code đã xong, chưa commit |

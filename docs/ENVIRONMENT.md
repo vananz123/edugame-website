@@ -24,10 +24,10 @@ Cập nhật: 2026-10-31
 | Auth service | ✅ hoạt động (`/auth/v1/health` → 200) |
 | Storage | ✅ truy cập được (`/storage/v1/bucket` → 200) |
 | Publishable key | ✅ hợp lệ (REST không trả 401) |
-| Schema `public` | ⚠️ trống — chưa có bảng (kiểm tra 2026-10-31) |
-| MCP quản trị DB | ❌ không có; chỉ có `supabase:search_docs` |
+| Schema `public` | ⚠️ migration đã viết (`supabase/migrations/`) nhưng **CHƯA áp dụng** — schema vẫn trống (2026-10-31) |
+| MCP quản trị DB | ❌ không có; chỉ có `supabase:search_docs` → chạy migration thủ công |
 
-> Kiểm tra lại trạng thái schema trước khi làm Phase 3; có thể chủ dự án đã tạo bảng sau thời điểm kiểm tra.
+> Trang public vẫn chạy khi schema trống nhờ fallback `messages`. Admin CRUD cần áp migration + tạo tài khoản admin (xem §3).
 
 ## 3. Chạy migration thủ công (khi chưa có MCP DB)
 
@@ -41,6 +41,20 @@ Cách B — Supabase CLI (nếu cài):
 supabase link --project-ref kosieqrqabcrvmvzbemt
 supabase db push
 ```
+
+Thứ tự: `0001_init.sql` (schema + RLS + storage) → `0002_seed.sql` (placeholder, idempotent).
+
+### Tạo tài khoản admin (bắt buộc để vào dashboard)
+
+1. Supabase Dashboard → **Authentication → Users → Add user**: nhập email + password admin (chọn "Auto Confirm User" nếu có).
+2. SQL Editor, chạy (thay email thật):
+   ```sql
+   insert into public.admin_users (email) values ('your-admin@email.com')
+   on conflict (email) do nothing;
+   ```
+3. Vào `/admin/login`, đăng nhập bằng email/password đó. `requireAdmin()` gọi `rpc("is_admin")` → khớp allowlist mới cho qua.
+
+> Chỉ email trong `admin_users` mới là admin. Tạo user Auth mà quên insert allowlist thì vẫn bị chặn. Không dùng service-role key để bypass.
 
 ## 4. Chạy local
 

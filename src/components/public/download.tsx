@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { Download as DownloadIcon, MonitorDown, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,18 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import type { DownloadData } from "@/lib/data/types";
 
-// Placeholder — URL thật sẽ được cấu hình qua Admin/Supabase ở Phase 3.
-const DOWNLOAD_URL = "#";
-const TRIAL_URL = "#";
-
-export function Download() {
-  const t = useTranslations("download");
-
+export function Download({ data }: { data: DownloadData }) {
   const meta = [
-    { label: t("versionLabel"), value: t("version") },
-    { label: t("fileSizeLabel"), value: t("fileSize") },
-    { label: t("releaseDateLabel"), value: t("releaseDate") },
+    { label: data.versionLabel, value: data.version },
+    { label: data.fileSizeLabel, value: data.fileSize },
+    { label: data.releaseDateLabel, value: data.releaseDate },
   ];
 
   return (
@@ -27,10 +21,10 @@ export function Download() {
       <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-semibold tracking-tight">
-            {t("heading")}
+            {data.heading}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            {t("description")}
+            {data.description}
           </p>
         </div>
 
@@ -40,8 +34,8 @@ export function Download() {
               <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <MonitorDown className="size-5" />
               </div>
-              <CardTitle>{t("cardTitle")}</CardTitle>
-              <CardDescription>{t("requirements")}</CardDescription>
+              <CardTitle>{data.cardTitle}</CardTitle>
+              <CardDescription>{data.requirements}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <dl className="grid grid-cols-3 gap-4">
@@ -56,19 +50,19 @@ export function Download() {
                 <Button
                   size="lg"
                   nativeButton={false}
-                  render={<a href={DOWNLOAD_URL} />}
+                  render={<a href={data.windowsUrl} />}
                 >
                   <DownloadIcon className="size-4" />
-                  {t("button")}
+                  {data.button}
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   nativeButton={false}
-                  render={<a href={TRIAL_URL} />}
+                  render={<a href={data.trialUrl} />}
                 >
                   <PlayCircle className="size-4" />
-                  {t("trialButton")}
+                  {data.trialButton}
                 </Button>
               </div>
             </CardContent>
@@ -78,15 +72,15 @@ export function Download() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-base">
-                  {t("releaseNotesLabel")}
+                  {data.releaseNotesLabel}
                 </CardTitle>
-                <CardDescription>{t("releaseNotes")}</CardDescription>
+                <CardDescription>{data.releaseNotes}</CardDescription>
               </CardHeader>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">{t("trialLabel")}</CardTitle>
-                <CardDescription>{t("trial")}</CardDescription>
+                <CardTitle className="text-base">{data.trialLabel}</CardTitle>
+                <CardDescription>{data.trial}</CardDescription>
               </CardHeader>
             </Card>
           </div>

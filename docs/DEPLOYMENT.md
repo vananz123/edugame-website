@@ -4,9 +4,9 @@
 
 ## 1. Điều kiện trước khi deploy
 
-- [ ] Code Phase 2–4 hoàn thành, `lint` + `tsc` + `build` pass.
-- [ ] Supabase đã có schema + RLS + Storage policy (Phase 3).
-- [ ] Đã tạo tài khoản admin trong Supabase Auth.
+- [x] Code Phase 2–4 hoàn thành, `lint` + `tsc` + `build` pass.
+- [ ] Supabase đã có schema + RLS + Storage policy (migration đã viết, **chưa áp dụng** — Phase 3).
+- [ ] Đã tạo tài khoản admin trong Supabase Auth + insert `admin_users`.
 - [ ] Có tài khoản Vercel và (tùy chọn) tên miền.
 
 ## 2. Supabase production
@@ -55,4 +55,4 @@
 
 ## 7. Trạng thái
 
-- ⬜ Chưa deploy (tính tới 2026-10-31). Repo mới có `.gitignore` + `docs/`.
+- ⬜ Chưa deploy (tính tới 2026-10-31). Code Phase 2–4 đã xong (Phase 2 đã commit `903fd57`; Phase 3/4 chờ duyệt commit). Cần áp migration + tạo admin + test CRUD trước khi deploy.

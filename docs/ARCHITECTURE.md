@@ -1,6 +1,6 @@
 # ARCHITECTURE — EduGame Website
 
-> Tài liệu mô tả kiến trúc **dự kiến** (giai đoạn hiện tại repo chưa có code ứng dụng). Cập nhật file này khi kiến trúc thực tế thay đổi.
+> Tài liệu mô tả kiến trúc **đã triển khai** (Phase 2–4). Cập nhật file này khi kiến trúc thực tế thay đổi.
 
 ## 1. Tech stack
 
@@ -27,23 +27,28 @@ edugame-website/
 │   └── migrations/           # SQL migration có version (nguồn sự thật schema)
 ├── src/
 │   ├── app/
+│   │   ├── layout.tsx        # Root <html lang> duy nhất (getLocale)
 │   │   ├── [locale]/         # Public: /vi, /en
-│   │   │   ├── layout.tsx
+│   │   │   ├── layout.tsx    # NextIntlClientProvider (không <html>)
 │   │   │   └── page.tsx      # Landing single-page
-│   │   └── admin/            # Admin (không nằm trong [locale])
-│   │       ├── login/
-│   │       ├── content/
-│   │       ├── games/
-│   │       ├── downloads/
-│   │       └── settings/
+│   │   ├── admin/
+│   │   │   ├── login/        # Ngoài guard
+│   │   │   └── (dashboard)/  # layout gọi requireAdmin()
+│   │   │       ├── page.tsx  # Overview
+│   │   │       ├── content/
+│   │   │       ├── games/
+│   │   │       ├── downloads/
+│   │   │       └── settings/
+│   │   ├── sitemap.ts
+│   │   └── robots.ts
 │   ├── components/
 │   │   ├── public/           # Navbar, Hero, GameShowcase, ...
-│   │   ├── admin/            # Forms, tables, dialogs
-│   │   └── ui/               # shadcn/ui
+│   │   └── ui/               # shadcn/ui (Base UI)
 │   ├── lib/
-│   │   ├── supabase/         # client.ts (browser), server.ts (RSC/actions)
-│   │   ├── data/             # Data access functions (server-only)
-│   │   └── auth.ts           # Kiểm tra admin server-side
+│   │   ├── supabase/         # public.ts, server.ts, client.ts
+│   │   ├── data/             # types.ts, public.ts (server-only)
+│   │   ├── admin/            # revalidate.ts
+│   │   └── auth.ts           # requireAdmin() server-side
 │   └── proxy.ts              # next-intl locale (Next 16 "proxy", thay middleware)
 ├── .env.example              # Placeholder, được commit
 ├── .env.local                # Secret local, KHÔNG commit
@@ -75,7 +80,7 @@ Admin ──> /admin/* (server auth check) ──> server actions ──> Supaba
 ### `site_content`
 | Cột | Kiểu | Ghi chú |
 |---|---|---|
-| `key` | text PK | vd: `hero`, `about`, `overview`, `features`, `contact` |
+| `key` | text PK | `hero`, `about`, `product`, `features`, `contact` |
 | `content` | jsonb | `{ "vi": {...}, "en": {...} }` |
 | `status` | text | `draft` \| `published` |
 | `updated_at` | timestamptz | |
@@ -121,7 +126,7 @@ Admin ──> /admin/* (server auth check) ──> server actions ──> Supaba
 
 - Bật RLS trên **tất cả** bảng public-facing.
 - Policy đọc: `published = true` (hoặc `status = 'published'`) cho `anon` + `authenticated`.
-- Policy ghi (insert/update/delete): chỉ admin. Cách xác định admin dự kiến: allowlist email trong bảng `admin_users` hoặc `app_metadata.role = 'admin'` — chốt khi làm Phase 3, không hardcode phía client.
+- Policy ghi (insert/update/delete): chỉ admin. **Đã chốt:** allowlist email trong bảng `admin_users` (RLS bật, KHÔNG có policy select public) + hàm `public.is_admin()` `SECURITY DEFINER` so sánh `auth.jwt()->>'email'`. Policy ghi dùng `public.is_admin()`. App gọi `supabase.rpc("is_admin")` để kiểm tra (không select trực tiếp `admin_users` vì bị RLS chặn).
 - Storage bucket `media`: public read; insert/update/delete chỉ admin.
 - Server actions `/admin/*` luôn kiểm tra session + quyền admin phía server (middleware chỉ là lớp phụ).
 - Service-role key (nếu cần) chỉ tồn tại trong env server-only, không bao giờ commit / lộ ra client.
@@ -147,4 +152,27 @@ Gotcha bắt buộc nhớ khi code UI:
 3. **lucide-react v1 đã bỏ icon thương hiệu** (`Github`, `Twitter`...). Dùng icon thay thế (`Code2`, `ExternalLink`...).
 4. Next 16: file `middleware.ts` đã deprecated → dùng **`src/proxy.ts`** (đã đổi).
 5. `next.config.ts` KHÔNG bật `cacheComponents`/`partialPrefetching` (giữ App Router chuẩn để ISR/revalidate đơn giản).
-6. Root layout nằm ở `src/app/[locale]/layout.tsx` (render `<html>`); không có `app/layout.tsx`. Khi thêm Admin (Phase 4) cần tái cấu trúc mixed-routing (xem AGENT_GUIDE).
+6. **Mixed routing (public có locale + admin không locale):** root layout duy nhất ở `src/app/layout.tsx` render `<html lang={await getLocale()}>` + fonts + globals.css. `src/app/[locale]/layout.tsx` chỉ bọc `NextIntlClientProvider` (KHÔNG render `<html>`). Admin nằm trong route group `src/app/admin/(dashboard)/` — `layout.tsx` của group gọi `await requireAdmin()`; `/admin/login` nằm ngoài group nên không bị guard. `src/proxy.ts` matcher loại trừ `admin` để next-intl không can thiệp route admin.
+
+## 9. Phase 3–4 đã triển khai
+
+**Supabase clients** (`src/lib/supabase/`):
+- `public.ts`: `getPublicClient()` (anon, trả `null` nếu thiếu env) + `getPublicMediaUrl(path)`. Dùng cho RSC public, không đọc cookie.
+- `server.ts`: `getServerClient()` — `createServerClient` (@supabase/ssr) với `cookies.getAll/setAll` (try/catch vì RSC không set được cookie). Dùng cho admin RSC + server actions.
+- `client.ts`: `getBrowserClient()` — `createBrowserClient`.
+
+**Data access** (`src/lib/data/`):
+- `types.ts`: `Locale`, `HeroData`, `AboutData`, `ProductData`, `FeaturesData`, `GamesData`, `DownloadData`, `PublicData`.
+- `public.ts`: `getPublicData(locale)` query song song `site_content`(published) + `games`(published, sort) + `downloads`(published, limit 1). Merge nội dung DB localized đè lên fallback `messages/{locale}.json` → trang public vẫn chạy khi DB trống/chưa áp migration.
+
+**Auth** (`src/lib/auth.ts`): `getSessionUser()`; `requireAdmin()` → `redirect("/admin/login")` nếu không có user hoặc `rpc("is_admin")` lỗi/false. Mọi server action admin gọi `requireAdmin()` đầu tiên.
+
+**Server actions + revalidate**: mỗi khu vực có `actions.ts` ("use server"); sau khi lưu gọi `revalidatePublic()` (`src/lib/admin/revalidate.ts`) = `revalidatePath("/vi")` + `("/en")`. Kết quả trả `{error?, ok?, path?}`; client dùng `sonner` toast + `router.refresh()`.
+
+**Admin UI**:
+- `content/`: `schemas.ts` (định nghĩa field theo key: text/textarea/list/items), `content-editor.tsx` (editor song ngữ schema-driven, Switch published, submit `content_json`), `content-manager.tsx` (chọn key), `page.tsx`.
+- `games/`: `game-manager.tsx` (Table + Dialog form, upload screenshot, move up/down, delete), `actions.ts` (saveGame/deleteGame/moveGame/uploadScreenshot — validate PNG/JPEG/WEBP/GIF ≤5MB, path `games/<uuid>.<ext>`, ghi row `media`).
+- `downloads/`: `download-form.tsx` + `actions.ts`.
+- `settings/page.tsx`: tái dùng `ContentEditor` cho key `contact` + card thông tin admin (allowlist `admin_users` không sửa từ dashboard để tránh tự khóa).
+
+> Media management hiện qua upload screenshot trong form game (bucket `media` + bảng `media`). Chưa có trang duyệt/xóa media riêng — bổ sung nếu cần ở Phase 5.
