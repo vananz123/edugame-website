@@ -5,8 +5,8 @@
 ## 1. Điều kiện trước khi deploy
 
 - [x] Code Phase 2–4 hoàn thành, `lint` + `tsc` + `build` pass.
-- [ ] Supabase đã có schema + RLS + Storage policy (migration đã viết, **chưa áp dụng** — Phase 3).
-- [ ] Đã tạo tài khoản admin trong Supabase Auth + insert `admin_users`.
+- [x] Supabase đã có schema + RLS + Storage policy (migration `0001_init.sql` + `0002_seed.sql` **đã áp dụng** trong project `kosieqrqabcrvmvzbemt`).
+- [x] Đã tạo tài khoản admin trong Supabase Auth + insert `admin_users` (✅ `dovanan.bth2017@gmail.com`).
 - [ ] Có tài khoản Vercel và (tùy chọn) tên miền.
 
 ## 2. Supabase production

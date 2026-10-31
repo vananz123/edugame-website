@@ -44,9 +44,34 @@ export async function saveGame(formData: FormData): Promise<ActionResult> {
 export async function deleteGame(id: string): Promise<ActionResult> {
   await requireAdmin();
   const supabase = await getServerClient();
+  const { data: row } = await supabase
+    .from("games")
+    .select("screenshot_path")
+    .eq("id", id)
+    .maybeSingle();
   const { error } = await supabase.from("games").delete().eq("id", id);
   if (error) return { error: error.message };
+  if (row?.screenshot_path) await removeMedia(supabase, row.screenshot_path);
   revalidatePublic();
+  return { ok: true };
+}
+
+async function removeMedia(
+  supabase: Awaited<ReturnType<typeof getServerClient>>,
+  path: string
+) {
+  await supabase.storage.from("media").remove([path]);
+  await supabase.from("media").delete().eq("path", path);
+}
+
+export async function removeScreenshot(
+  formData: FormData
+): Promise<ActionResult> {
+  await requireAdmin();
+  const path = String(formData.get("path") ?? "").trim();
+  if (!path) return { ok: true };
+  const supabase = await getServerClient();
+  await removeMedia(supabase, path);
   return { ok: true };
 }
 
@@ -96,5 +121,7 @@ export async function uploadScreenshot(
   if (error) return { error: error.message };
 
   await supabase.from("media").insert({ bucket: "media", path, alt: {} });
+  const oldPath = String(formData.get("old_path") ?? "").trim();
+  if (oldPath && oldPath !== path) await removeMedia(supabase, oldPath);
   return { ok: true, path };
 }

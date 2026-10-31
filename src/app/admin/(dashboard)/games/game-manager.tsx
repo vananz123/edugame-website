@@ -9,6 +9,7 @@ import {
   deleteGame,
   moveGame,
   uploadScreenshot,
+  removeScreenshot,
 } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,6 +91,7 @@ export function GameManager({ games }: { games: GameRow[] }) {
     if (!file) return;
     const fd = new FormData();
     fd.set("file", file);
+    fd.set("old_path", screenshotPath);
     const res = await uploadScreenshot(fd);
     if (res.error) {
       toast.error(res.error);
@@ -97,6 +99,19 @@ export function GameManager({ games }: { games: GameRow[] }) {
     }
     setScreenshotPath(res.path ?? "");
     toast.success("Screenshot uploaded.");
+  }
+
+  async function onRemoveScreenshot() {
+    if (!screenshotPath) return;
+    const fd = new FormData();
+    fd.set("path", screenshotPath);
+    const res = await removeScreenshot(fd);
+    if (res.error) {
+      toast.error(res.error);
+      return;
+    }
+    setScreenshotPath("");
+    toast.success("Screenshot removed.");
   }
 
   async function onDelete(g: GameRow) {
@@ -286,12 +301,23 @@ export function GameManager({ games }: { games: GameRow[] }) {
                   />
                 </label>
                 {screenshotPath ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={publicUrl(screenshotPath)}
-                    alt="Screenshot preview"
-                    className="h-12 w-20 rounded border border-border object-cover"
-                  />
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={publicUrl(screenshotPath)}
+                      alt="Screenshot preview"
+                      className="h-12 w-20 rounded border border-border object-cover"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={onRemoveScreenshot}
+                    >
+                      <Trash2 className="size-4" />
+                      Remove
+                    </Button>
+                  </>
                 ) : (
                   <span className="text-sm text-muted-foreground">
                     No screenshot

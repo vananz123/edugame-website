@@ -24,12 +24,15 @@ Cập nhật: 2026-10-31
 | Auth service | ✅ hoạt động (`/auth/v1/health` → 200) |
 | Storage | ✅ truy cập được (`/storage/v1/bucket` → 200) |
 | Publishable key | ✅ hợp lệ (REST không trả 401) |
-| Schema `public` | ⚠️ migration đã viết (`supabase/migrations/`) nhưng **CHƯA áp dụng** — schema vẫn trống (2026-10-31) |
-| MCP quản trị DB | ❌ không có; chỉ có `supabase:search_docs` → chạy migration thủ công |
+| Schema `public` | ✅ migration `0001_init.sql` + `0002_seed.sql` **đã áp dụng** (2026-10-31): 5 bảng, RLS, bucket `media` |
+| Admin | ✅ Auth user + allowlist `admin_users` đã tạo (`dovanan.bth2017@gmail.com`) |
+| MCP quản trị DB | ❌ không có; chỉ có `supabase:search_docs` → thao tác SQL qua Dashboard |
 
-> Trang public vẫn chạy khi schema trống nhờ fallback `messages`. Admin CRUD cần áp migration + tạo tài khoản admin (xem §3).
+> Trang public vẫn có fallback `messages` khi bảng rỗng. Admin CRUD cần cả migration + email trong `admin_users` (§3).
 
 ## 3. Chạy migration thủ công (khi chưa có MCP DB)
+
+> Project hiện tại **đã áp dụng** cả 2 migration. Phần dưới dùng khi dựng project Supabase mới (staging/prod) hoặc reset.
 
 Cách A — Supabase Dashboard:
 1. Mở project → SQL Editor.

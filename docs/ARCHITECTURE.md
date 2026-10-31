@@ -175,4 +175,5 @@ Gotcha bắt buộc nhớ khi code UI:
 - `downloads/`: `download-form.tsx` + `actions.ts`.
 - `settings/page.tsx`: tái dùng `ContentEditor` cho key `contact` + card thông tin admin (allowlist `admin_users` không sửa từ dashboard để tránh tự khóa).
 
-> Media management hiện qua upload screenshot trong form game (bucket `media` + bảng `media`). Chưa có trang duyệt/xóa media riêng — bổ sung nếu cần ở Phase 5.
+> Media management: upload + preview trong form game; nút **Remove** xóa screenshot (storage object + row `media`); `deleteGame` và upload thay thế tự dọn ảnh cũ qua `removeMedia()` để không orphan. Chưa có trang duyệt media riêng — bổ sung nếu cần.
+> Toaster admin đặt `position="top-right"` để không che nút Save ở cuối form.

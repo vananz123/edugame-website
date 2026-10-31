@@ -10,9 +10,9 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 |---|---|---|
 | Phase 1 | Kiểm tra môi trường (Git, Supabase, stack) | ✅ xong |
 | Phase 2 | Website công khai song ngữ | ✅ xong |
-| Phase 3 | Supabase schema + RLS + data access | ✅ code xong (migration chờ duyệt + áp dụng) |
-| Phase 4 | Admin dashboard | ✅ code xong (chờ DB để test CRUD) |
-| Phase 5 | Kiểm thử tổng thể + triển khai | 🔄 build/lint/typecheck pass; chưa deploy |
+| Phase 3 | Supabase schema + RLS + data access | ✅ xong (migration đã áp dụng) |
+| Phase 4 | Admin dashboard | ✅ xong (đã test CRUD trong browser) |
+| Phase 5 | Kiểm thử tổng thể + triển khai | 🔄 test admin xong; còn dọn orphan media + deploy |
 
 ## Phase 1 — Environment Inspection
 
@@ -20,10 +20,10 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ Commit đầu tiên `7772e28` (`.gitignore`), đã push lên `origin/main`
 - ✅ `.env.local` có `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, đã được gitignore
 - ✅ Supabase project `kosieqrqabcrvmvzbemt` phản hồi tốt (Auth 200, Storage 200, publishable key hợp lệ)
-- ⬜ Schema `public` hiện **trống** — chưa có bảng nào
+- ✅ Schema `public` đã có 5 bảng sau khi áp migration (2026-10-31)
 - ✅ Node.js v26.13.0 + npm 11.20.0 đã cài (winget `OpenJS.NodeJS.LTS`); PATH: `C:\Program Files\nodejs`
 - ✅ Next.js 16.4.3 + TypeScript + Tailwind v4 + shadcn/ui (base-nova) + next-intl 4 + lucide-react 1 đã khởi tạo
-- ⬜ Supabase MCP: chỉ có tool `search_docs` (plugin supabase) — **không có** MCP quản trị DB; migration sẽ chạy thủ công qua SQL Editor hoặc CLI (xem ENVIRONMENT.md)
+- ✅ Supabase MCP: chỉ có tool `search_docs` (plugin supabase) — không có MCP quản trị DB; migration đã chạy thủ công qua SQL Editor (xem ENVIRONMENT.md)
 - ✅ Bộ tài liệu chuyển giao `docs/` đã tạo
 
 ## Phase 2 — Public Website
@@ -43,7 +43,7 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ Storage bucket `media` public read + policy insert/update/delete chỉ admin
 - ✅ Data access server-only (`src/lib/data/public.ts`) + trang public đọc nội dung published, fallback về `messages` khi DB trống
 - ✅ Seed placeholder (không bịa thông tin cá nhân / link tải thật)
-- ⛔ **Migration CHƯA áp dụng** — cần chủ dự duyệt SQL rồi chạy trong Supabase SQL Editor (xem ENVIRONMENT.md §3)
+- ✅ Migration **đã áp dụng** vào project `kosieqrqabcrvmvzbemt` (schema + RLS + bucket `media` + seed)
 
 ## Phase 4 — Admin Dashboard
 
@@ -54,18 +54,21 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ `/admin/games` — CRUD + sắp xếp (move up/down) + publish/ẩn + upload screenshot (validate type + size ≤5MB)
 - ✅ `/admin/downloads` — version, URL, file size, release date, requirements, release notes, trial
 - ✅ `/admin/settings` — contact (GitHub/email) + thông tin tài khoản admin
-- ✅ Media upload qua Storage + ghi row `media`; preview trong form game
+- ✅ Media upload qua Storage + ghi row `media`; preview + nút Remove; deleteGame/upload-thay-thế tự dọn ảnh cũ
 - ✅ Draft → publish + `revalidatePath("/vi")`/`("/en")` sau mỗi lần lưu
-- ⛔ **Chưa test CRUD trong browser** — cần áp migration + tạo tài khoản admin trước
+- ✅ Đã test CRUD trong browser (sau khi áp migration + tạo admin) — xem Phase 5
 
 ## Phase 5 — Final Verification & Deployment
 
 - ✅ `lint` + `tsc --noEmit` + `next build` pass (13 routes, admin đủ)
 - ✅ Browser: `/vi` 200, `/admin` → 307 → `/admin/login`, login render sạch, console sạch
-- ⬜ Test admin auth + CRUD + upload + publish (chờ DB)
-- ⬜ Kiểm tra không lộ secret
+- ✅ Browser admin (đã áp migration + admin): login OK; overview stats đúng; content sửa+publish→public cập nhật (revalidate); games create/reorder/delete + upload screenshot (Storage public read) + Remove; downloads save→public cập nhật; settings render; console sạch
+- ✅ Media cleanup: Remove xóa storage+media; deleteGame/upload-thay-thế tự dọn ảnh cũ; toaster top-right không che Save
+- ⬜ Commit + push bản sửa follow-up (media cleanup, toaster, docs) — chờ chủ dự án duyệt
+- ⬜ Dọn 2 orphan media object/row còn lại từ lúc test (liệt kê ở HANDOVER §4)
+- ⬜ Kiểm tra không lộ secret (đã grep src: không có service-role/key)
 - ⬜ Deploy Vercel + cấu hình env production + Supabase redirect URLs (xem DEPLOYMENT.md)
-- ⬜ Cập nhật HANDOVER.md với trạng thái cuối
+- ✅ Cập nhật HANDOVER.md với trạng thái cuối
 
 ## Việc cần chủ dự án cung cấp / quyết định
 
@@ -74,7 +77,7 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Thông tin cá nhân thật (tên, bio, link GitHub, contact) | Phase 2 | ⬜ đang dùng placeholder |
 | Tên + mô tả + screenshot 5 game types | Phase 2/3 | ⬜ |
 | Link tải Windows thật + version + release notes | Phase 2/3 | ⬜ (brief cấm bịa) |
-| Tài khoản admin Supabase Auth (email) + insert `admin_users` | Phase 4 | ⬜ **blocker test CRUD** |
+| Tài khoản admin Supabase Auth (email) + insert `admin_users` | Phase 4 | ✅ `dovanan.bth2017@gmail.com` |
 | Tài khoản Vercel + tên miền mong muốn | Phase 5 | ⬜ |
-| Duyệt migration SQL trước khi áp dụng | Phase 3 | ⬜ **blocker** — SQL đã sẵn sàng trong `supabase/migrations/` |
-| Duyệt commit + push code Phase 3/4 | Phase 3/4 | ⬜ code đã xong, chưa commit |
+| Duyệt migration SQL trước khi áp dụng | Phase 3 | ✅ đã duyệt + đã áp dụng |
+| Duyệt commit + push code Phase 3/4 | Phase 3/4 | ✅ đã commit `cb419ed` + push `origin/main` |
