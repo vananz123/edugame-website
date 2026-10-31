@@ -12,7 +12,8 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Phase 2 | Website công khai song ngữ | ✅ xong |
 | Phase 3 | Supabase schema + RLS + data access | ✅ xong (migration đã áp dụng) |
 | Phase 4 | Admin dashboard | ✅ xong (đã test CRUD trong browser) |
-| Phase 5 | Kiểm thử tổng thể + triển khai | 🔄 test admin xong; còn dọn orphan media + deploy |
+| Phase 5 | Kiểm thử tổng thể + triển khai | 🔄 test admin xong; còn deploy |
+| Phase 6 | Docs/Hướng dẫn (bổ sung ngoài brief) | ✅ xong (migration 0003 đã áp dụng + đã test browser) |
 
 ## Phase 1 — Environment Inspection
 
@@ -60,15 +61,28 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 
 ## Phase 5 — Final Verification & Deployment
 
-- ✅ `lint` + `tsc --noEmit` + `next build` pass (13 routes, admin đủ)
+- ✅ `lint` + `tsc --noEmit` + `next build` pass (16 routes sau Phase 6)
 - ✅ Browser: `/vi` 200, `/admin` → 307 → `/admin/login`, login render sạch, console sạch
 - ✅ Browser admin (đã áp migration + admin): login OK; overview stats đúng; content sửa+publish→public cập nhật (revalidate); games create/reorder/delete + upload screenshot (Storage public read) + Remove; downloads save→public cập nhật; settings render; console sạch
 - ✅ Media cleanup: Remove xóa storage+media; deleteGame/upload-thay-thế tự dọn ảnh cũ; toaster top-right không che Save
 - ✅ Commit + push bản sửa follow-up (media cleanup, toaster, docs) — `bccc684`
-- ⬜ Dọn 2 orphan media object/row còn lại từ lúc test (liệt kê ở HANDOVER §4)
+- ✅ Dọn 2 orphan media object/row còn lại từ lúc test (storage + bảng `media`, xác minh còn 0)
+- ✅ Dọn game test ẩn `[Test2]` (row + ảnh) — còn đúng 5 game seed
 - ⬜ Kiểm tra không lộ secret (đã grep src: không có service-role/key)
 - ⬜ Deploy Vercel + cấu hình env production + Supabase redirect URLs (xem DEPLOYMENT.md)
 - ✅ Cập nhật HANDOVER.md với trạng thái cuối
+
+## Phase 6 — Docs / Hướng dẫn (bổ sung ngoài brief)
+
+- ✅ Migration `0003_guides.sql`: bảng `guides` + RLS (public đọc published, admin ghi) + index
+- ✅ Public `/[locale]/docs` + `/[locale]/docs/[slug]`: danh sách dạng card, chi tiết; Markdown (`react-markdown` + `remark-gfm`, không raw HTML), ảnh, video YouTube/Vimeo/Drive
+- ✅ Nav/Footer có link "Hướng dẫn"; sitemap gồm docs + từng bài; i18n vi/en
+- ✅ Admin `/admin/guides`: CRUD, cover upload + Copy snippet Markdown, video URL, draft/publish, sắp xếp; dọn cover cũ khi thay/xóa; quick link ở overview
+- ✅ `typecheck` + `lint` + `build` pass; browser xác nhận `/vi/docs`, `/en/docs` render empty state, `/admin/guides` render
+- ✅ Migration `0003_guides.sql` **đã áp dụng** (bảng `guides` + RLS + index tồn tại, REST 200)
+- ✅ Browser test đầy đủ: tạo + publish guide (Markdown vi/en + video YouTube) → `/vi/docs`, `/en/docs` render; sửa title → public cập nhật (revalidate); upload cover → hiện trên trang chi tiết; xóa guide → public 404, storage object + row `media` được dọn sạch (kiểm tra `media` = 0)
+- ✅ Dọn guide test sau khi kiểm thử; DB guides = 0, media = 0 (nội dung thật chờ chủ dự án)
+- ⬜ Commit + push code Phase 6 (chờ duyệt)
 
 ## Việc cần chủ dự án cung cấp / quyết định
 
@@ -81,3 +95,6 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Tài khoản Vercel + tên miền mong muốn | Phase 5 | ⬜ |
 | Duyệt migration SQL trước khi áp dụng | Phase 3 | ✅ đã duyệt + đã áp dụng |
 | Duyệt commit + push code Phase 3/4 | Phase 3/4 | ✅ đã commit `cb419ed` + `bccc684`, đã push `origin/main` |
+| Duyệt + áp migration `0003_guides.sql` | Phase 6 | ✅ đã duyệt + đã áp dụng |
+| Duyệt commit + push code Phase 6 | Phase 6 | ⬜ chờ duyệt |
+| Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | ⬜ (guide test đã dọn, DB trống) |

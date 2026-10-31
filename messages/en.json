@@ -8,6 +8,7 @@
     "product": "EduGame Studio",
     "games": "Game showcase",
     "features": "Features",
+    "docs": "Guides",
     "download": "Download"
   },
   "common": {
@@ -98,8 +99,19 @@
     "rights": "© {year} [Your name]. All rights reserved.",
     "about": "About",
     "features": "Features",
+    "docs": "Guides",
     "download": "Download",
     "github": "GitHub",
     "email": "Email"
+  },
+  "docs": {
+    "title": "User guides",
+    "description": "Documentation, tips and video walkthroughs for EduGame Studio.",
+    "empty": "No guides published yet.",
+    "emptyHint": "Guides will appear here once they are published.",
+    "readMore": "Read guide",
+    "updated": "Updated",
+    "back": "All guides",
+    "video": "Walkthrough video"
   }
 }

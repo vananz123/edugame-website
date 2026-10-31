@@ -28,19 +28,24 @@ export function Footer({
             <h3 className="text-sm font-semibold">{t("productHeading")}</h3>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#product" className="hover:text-foreground">
+                <Link href="/#product" className="hover:text-foreground">
                   {t("about")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#features" className="hover:text-foreground">
+                <Link href="/#features" className="hover:text-foreground">
                   {t("features")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#download" className="hover:text-foreground">
+                <Link href="/docs" className="hover:text-foreground">
+                  {t("docs")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/#download" className="hover:text-foreground">
                   {t("download")}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

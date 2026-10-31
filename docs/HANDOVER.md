@@ -31,26 +31,30 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 ## 4. Trạng thái hiện tại (2026-10-31)
 
 **Đã xong:**
-- Git repo + remote; commit `7772e28` (`.gitignore`), `903fd57` (Phase 2 + docs), `cb419ed` (Phase 3–4), `bccc684` (dọn media + Toaster + docs), đã push `origin/main`.
+- Git repo + remote; commit `7772e28` (`.gitignore`), `903fd57` (Phase 2 + docs), `cb419ed` (Phase 3–4), `bccc684` (dọn media + Toaster + docs), `ef71e8e` (đồng bộ docs trạng thái), đã push `origin/main`.
 - `.env.local` với Supabase URL + publishable key (đã kiểm tra hợp lệ), đã gitignore.
 - Supabase project sống (Auth/Storage OK).
 - Bộ tài liệu `docs/` đầy đủ.
 - **Phase 2**: Next.js 16 + landing song ngữ `/vi`,`/en` (đủ 8 section), SEO/sitemap/robots, đã test browser, build/lint/typecheck pass.
 - **Phase 3**: migration `0001_init.sql` (schema + RLS + bucket `media`) và `0002_seed.sql` (placeholder) **đã áp dụng** vào project `kosieqrqabcrvmvzbemt`; Supabase clients (public/server/browser); `getPublicData()` đọc published + fallback `messages`.
 - **Phase 4**: `/admin/login` (Auth) + guard server-side `requireAdmin()` cho route group `(dashboard)` và mọi server action; overview/content/games/downloads/settings; upload screenshot (+ preview, nút Remove, dọn ảnh cũ khi thay/xóa game); draft/publish + revalidate. Tài khoản admin `dovanan.bth2017@gmail.com` đã tạo và nằm trong `admin_users`.
-- **Đã test trong browser**: đăng nhập, overview stats, sửa content → publish → trang public cập nhật, đổi thứ tự game, tạo/xóa game kèm upload screenshot, xóa screenshot (storage + row `media`), lưu downloads, settings render; console sạch. DB đã trả về trạng thái seed sau test.
-- Build/lint/typecheck pass (13 route).
+- **Đã test trong browser**: đăng nhập, overview stats, sửa content → publish → trang public cập nhật, đổi thứ tự game, tạo/xóa game kèm upload screenshot, xóa screenshot (storage + row `media`), lưu downloads, settings render; console sạch.
+- **Dọn dữ liệu test**: 2 orphan media (storage + row) và game test ẩn `[Test2]` đã xóa; DB còn đúng 5 game seed, `media` = 0.
+- **Phase 6 (bổ sung)**: module Docs/Hướng dẫn — migration `0003_guides.sql` (**đã áp dụng**: bảng `guides` + RLS + index), public `/[locale]/docs` + `/[locale]/docs/[slug]` (Markdown không raw HTML, ảnh, video YouTube/Vimeo/Drive qua allowlist), admin `/admin/guides` (CRUD, cover upload + xóa cover cũ, draft/publish, sắp xếp), nav/footer/sitemap/i18n.
+- **Đã test Phase 6 trong browser**: tạo + publish guide (Markdown vi/en + video) → hiện ở `/vi/docs` và `/en/docs`; sửa title → public cập nhật (revalidate); upload cover → hiện trên trang chi tiết; xóa guide → public 404 và storage object + row `media` được dọn sạch. Guide test đã xóa, DB guides = 0 (chờ nội dung thật).
+- Build/lint/typecheck pass (16 route).
 
 **Chưa làm / blocker:**
-- Còn 2 orphan media row + object từ lúc test (do lần test upload đầu chưa có cleanup): `games/b18935c8-444d-4413-bcb3-20abf6f62a0a.png`, `games/45792de3-80c8-40ec-b017-8f8acf24ab23.png` — xóa thủ công bằng SQL + Storage dashboard.
+- Code Phase 6 (docs/guides) **chưa commit** (chờ chủ dự án duyệt).
 - Chưa deploy Vercel (Phase 5).
-- Chưa có thông tin cá nhân thật, asset 5 game, link tải thật (đang chờ chủ dự án — xem ROADMAP).
+- Chưa có thông tin cá nhân thật, asset 5 game, link tải thật, nội dung guide thật (đang chờ chủ dự án — xem ROADMAP).
 
 ## 5. Việc cần làm tiếp (theo thứ tự)
 
-1. **Dọn orphan media** còn lại từ lúc test (2 path ở §4): xóa object trong Storage bucket `media` + xóa row tương ứng ở bảng `media`.
+1. **Duyệt commit + push** code Phase 6 (kèm docs cập nhật).
 2. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin`.
-3. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
+3. Viết guide thật (Markdown + ảnh + video) qua `/admin/guides`.
+4. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
 
 Chi tiết từng giai đoạn: [ROADMAP.md](./ROADMAP.md).
 

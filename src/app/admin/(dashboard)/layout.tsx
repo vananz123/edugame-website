@@ -6,6 +6,7 @@ import {
   FileText,
   Gamepad2,
   Download,
+  BookOpen,
   Settings,
   LogOut,
   ExternalLink,
@@ -19,6 +20,7 @@ const nav = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
   { href: "/admin/content", label: "Content", icon: FileText },
   { href: "/admin/games", label: "Games", icon: Gamepad2 },
+  { href: "/admin/guides", label: "Guides", icon: BookOpen },
   { href: "/admin/downloads", label: "Downloads", icon: Download },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];

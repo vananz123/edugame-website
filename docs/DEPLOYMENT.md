@@ -4,8 +4,8 @@
 
 ## 1. Điều kiện trước khi deploy
 
-- [x] Code Phase 2–4 hoàn thành, `lint` + `tsc` + `build` pass.
-- [x] Supabase đã có schema + RLS + Storage policy (migration `0001_init.sql` + `0002_seed.sql` **đã áp dụng** trong project `kosieqrqabcrvmvzbemt`).
+- [x] Code Phase 2–6 hoàn thành, `lint` + `tsc` + `build` pass.
+- [x] Supabase đã có schema + RLS + Storage policy (migration `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** trong project `kosieqrqabcrvmvzbemt`).
 - [x] Đã tạo tài khoản admin trong Supabase Auth + insert `admin_users` (✅ `dovanan.bth2017@gmail.com`).
 - [ ] Có tài khoản Vercel và (tùy chọn) tên miền.
 
@@ -46,6 +46,7 @@
 - [ ] `/admin/login` đăng nhập được; route `/admin/*` chặn người chưa đăng nhập.
 - [ ] Sửa content → publish → trang public cập nhật (revalidate) không cần deploy lại.
 - [ ] Upload ảnh hiển thị; link tải Windows đúng.
+- [ ] `/vi/docs`, `/en/docs` render; tạo guide published → hiện trên public, xóa → 404.
 - [ ] Kiểm tra không lộ secret trong bundle client / response.
 
 ## 6. Rollback
@@ -55,4 +56,4 @@
 
 ## 7. Trạng thái
 
-- ⬜ Chưa deploy (tính tới 2026-10-31). Code Phase 2–4 đã xong (Phase 2 đã commit `903fd57`; Phase 3/4 chờ duyệt commit). Cần áp migration + tạo admin + test CRUD trước khi deploy.
+- ⬜ Chưa deploy (tính tới 2026-10-31). Code Phase 2–5 đã commit + push (mới nhất `ef71e8e`); code Phase 6 (Docs) đã test xong nhưng **chờ duyệt commit**. DB đã sẵn sàng (schema đầy đủ + admin + đã test CRUD), chỉ còn điền nội dung thật rồi deploy.

@@ -24,15 +24,15 @@ Cập nhật: 2026-10-31
 | Auth service | ✅ hoạt động (`/auth/v1/health` → 200) |
 | Storage | ✅ truy cập được (`/storage/v1/bucket` → 200) |
 | Publishable key | ✅ hợp lệ (REST không trả 401) |
-| Schema `public` | ✅ migration `0001_init.sql` + `0002_seed.sql` **đã áp dụng** (2026-10-31): 5 bảng, RLS, bucket `media` |
+| Schema `public` | ✅ `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** (6 bảng gồm `guides`, RLS, bucket `media`) |
 | Admin | ✅ Auth user + allowlist `admin_users` đã tạo (`dovanan.bth2017@gmail.com`) |
 | MCP quản trị DB | ❌ không có; chỉ có `supabase:search_docs` → thao tác SQL qua Dashboard |
 
-> Trang public vẫn có fallback `messages` khi bảng rỗng. Admin CRUD cần cả migration + email trong `admin_users` (§3).
+> Trang public vẫn có fallback `messages` khi bảng rỗng. Trang `/docs` hiển thị empty state khi chưa có guide published; admin hiển thị bảng rỗng. Data access xử lý lỗi missing-table an toàn (không crash). Admin CRUD cần cả migration + email trong `admin_users` (§3).
 
 ## 3. Chạy migration thủ công (khi chưa có MCP DB)
 
-> Project hiện tại **đã áp dụng** cả 2 migration. Phần dưới dùng khi dựng project Supabase mới (staging/prod) hoặc reset.
+> Project hiện tại **đã áp dụng** cả `0001` + `0002` + `0003`. Phần dưới dùng khi dựng project Supabase mới (staging/prod) hoặc reset.
 
 Cách A — Supabase Dashboard:
 1. Mở project → SQL Editor.
@@ -45,7 +45,7 @@ supabase link --project-ref kosieqrqabcrvmvzbemt
 supabase db push
 ```
 
-Thứ tự: `0001_init.sql` (schema + RLS + storage) → `0002_seed.sql` (placeholder, idempotent).
+Thứ tự: `0001_init.sql` (schema + RLS + storage) → `0002_seed.sql` (placeholder, idempotent) → `0003_guides.sql` (bảng `guides` cho Docs, idempotent).
 
 ### Tạo tài khoản admin (bắt buộc để vào dashboard)
 

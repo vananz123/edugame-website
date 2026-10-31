@@ -8,6 +8,7 @@
     "product": "EduGame Studio",
     "games": "Thư viện game",
     "features": "Tính năng",
+    "docs": "Hướng dẫn",
     "download": "Tải xuống"
   },
   "common": {
@@ -98,8 +99,19 @@
     "rights": "© {year} [Tên của bạn]. Bảo lưu mọi quyền.",
     "about": "Giới thiệu",
     "features": "Tính năng",
+    "docs": "Hướng dẫn",
     "download": "Tải xuống",
     "github": "GitHub",
     "email": "Email"
+  },
+  "docs": {
+    "title": "Hướng dẫn sử dụng",
+    "description": "Tài liệu, mẹo và video hướng dẫn sử dụng EduGame Studio.",
+    "empty": "Chưa có tài liệu nào được đăng.",
+    "emptyHint": "Nội dung hướng dẫn sẽ được cập nhật tại đây.",
+    "readMore": "Đọc hướng dẫn",
+    "updated": "Cập nhật",
+    "back": "Tất cả hướng dẫn",
+    "video": "Video hướng dẫn"
   }
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Menu, GraduationCap } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -18,13 +18,21 @@ const items = [
   { key: "product", href: "#product" },
   { key: "games", href: "#games" },
   { key: "features", href: "#features" },
+  { key: "docs", href: "/docs" },
   { key: "download", href: "#download" },
 ] as const;
 
 export function Navbar() {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
+  const pathname = usePathname();
+  const locale = useLocale();
+  const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
+
+  const anchorHref = (href: string) => (isHome ? href : `/${locale}${href}`);
+  const linkClass =
+    "rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur">
@@ -35,15 +43,17 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {items.map((it) => (
-            <a
-              key={it.key}
-              href={it.href}
-              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {t(it.key)}
-            </a>
-          ))}
+          {items.map((it) =>
+            it.href.startsWith("#") ? (
+              <a key={it.key} href={anchorHref(it.href)} className={linkClass}>
+                {t(it.key)}
+              </a>
+            ) : (
+              <Link key={it.key} href={it.href} className={linkClass}>
+                {t(it.key)}
+              </Link>
+            )
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -52,7 +62,7 @@ export function Navbar() {
             size="sm"
             className="hidden sm:inline-flex"
             nativeButton={false}
-            render={<a href="#download" />}
+            render={<a href={anchorHref("#download")} />}
           >
             {tc("download")}
           </Button>
@@ -73,16 +83,27 @@ export function Navbar() {
             <SheetContent side="right" className="w-72">
               <SheetTitle className="sr-only">{tc("menu")}</SheetTitle>
               <nav className="mt-6 flex flex-col gap-1">
-                {items.map((it) => (
-                  <a
-                    key={it.key}
-                    href={it.href}
-                    onClick={() => setOpen(false)}
-                    className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                  >
-                    {t(it.key)}
-                  </a>
-                ))}
+                {items.map((it) =>
+                  it.href.startsWith("#") ? (
+                    <a
+                      key={it.key}
+                      href={anchorHref(it.href)}
+                      onClick={() => setOpen(false)}
+                      className={linkClass}
+                    >
+                      {t(it.key)}
+                    </a>
+                  ) : (
+                    <Link
+                      key={it.key}
+                      href={it.href}
+                      onClick={() => setOpen(false)}
+                      className={linkClass}
+                    >
+                      {t(it.key)}
+                    </Link>
+                  )
+                )}
               </nav>
             </SheetContent>
           </Sheet>

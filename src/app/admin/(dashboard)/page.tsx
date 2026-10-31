@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileText, Gamepad2, Download } from "lucide-react";
+import { BookOpen, Download, FileText, Gamepad2 } from "lucide-react";
 import { getServerClient } from "@/lib/supabase/server";
 import {
   Card,
@@ -11,15 +11,17 @@ import {
 
 export default async function AdminOverviewPage() {
   const supabase = await getServerClient();
-  const [games, content, downloads] = await Promise.all([
+  const [games, content, downloads, guides] = await Promise.all([
     supabase.from("games").select("id,published"),
     supabase.from("site_content").select("key,status"),
     supabase.from("downloads").select("id,published"),
+    supabase.from("guides").select("id,published"),
   ]);
 
   const gameRows = games.data ?? [];
   const contentRows = content.data ?? [];
   const dlRows = downloads.data ?? [];
+  const guideRows = guides.data ?? [];
 
   const stats = [
     {
@@ -35,6 +37,13 @@ export default async function AdminOverviewPage() {
       hint: "published / total",
       href: "/admin/content",
       icon: FileText,
+    },
+    {
+      label: "Guides",
+      value: `${guideRows.filter((g) => g.published).length}/${guideRows.length}`,
+      hint: "published / total",
+      href: "/admin/guides",
+      icon: BookOpen,
     },
     {
       label: "Downloads",
@@ -54,7 +63,7 @@ export default async function AdminOverviewPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
           <Link key={s.label} href={s.href}>
             <Card className="transition-colors hover:bg-muted/40">
@@ -83,6 +92,9 @@ export default async function AdminOverviewPage() {
           </Link>
           <Link href="/admin/games" className="text-primary hover:underline">
             Manage games
+          </Link>
+          <Link href="/admin/guides" className="text-primary hover:underline">
+            Manage guides
           </Link>
           <Link href="/admin/downloads" className="text-primary hover:underline">
             Manage downloads

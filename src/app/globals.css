@@ -128,3 +128,63 @@
     @apply font-sans;
   }
 }
+
+@layer components {
+  .prose-docs {
+    @apply text-[0.95rem] leading-7;
+  }
+  .prose-docs > :first-child {
+    @apply mt-0;
+  }
+  .prose-docs h1 {
+    @apply mt-8 mb-4 text-2xl font-semibold tracking-tight;
+  }
+  .prose-docs h2 {
+    @apply mt-8 mb-3 border-b border-border pb-2 text-xl font-semibold tracking-tight;
+  }
+  .prose-docs h3 {
+    @apply mt-6 mb-2 text-lg font-semibold;
+  }
+  .prose-docs h4 {
+    @apply mt-5 mb-2 font-semibold;
+  }
+  .prose-docs p {
+    @apply my-3;
+  }
+  .prose-docs a {
+    @apply text-primary underline underline-offset-4 hover:opacity-80;
+  }
+  .prose-docs ul {
+    @apply my-3 list-disc space-y-1 pl-6;
+  }
+  .prose-docs ol {
+    @apply my-3 list-decimal space-y-1 pl-6;
+  }
+  .prose-docs code {
+    @apply rounded bg-muted px-1.5 py-0.5 font-mono text-[0.85em];
+  }
+  .prose-docs pre {
+    @apply my-4 overflow-x-auto rounded-lg bg-muted p-4 text-sm;
+  }
+  .prose-docs pre code {
+    @apply bg-transparent p-0;
+  }
+  .prose-docs blockquote {
+    @apply my-4 border-l-4 border-border pl-4 text-muted-foreground italic;
+  }
+  .prose-docs img {
+    @apply my-4 max-w-full rounded-lg border border-border;
+  }
+  .prose-docs hr {
+    @apply my-8 border-border;
+  }
+  .prose-docs table {
+    @apply my-4 w-full border-collapse text-sm;
+  }
+  .prose-docs th {
+    @apply border border-border bg-muted px-3 py-2 text-left font-semibold;
+  }
+  .prose-docs td {
+    @apply border border-border px-3 py-2;
+  }
+}
