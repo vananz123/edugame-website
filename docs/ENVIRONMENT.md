@@ -8,7 +8,7 @@ Cập nhật: 2026-10-31
 |---|---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | public (client) | ✅ | URL project Supabase |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | public (client) | ✅ | Publishable key (anon) — an toàn cho client, vẫn không commit |
-| `NEXT_PUBLIC_SITE_URL` | public (client) | ❌ | URL công khai cho SEO/sitemap; mặc định `http://localhost:3000` |
+| `NEXT_PUBLIC_SITE_URL` | public (client) | ❌ | URL công khai cho SEO/sitemap; mặc định `http://localhost:3000`; **trên Vercel đã set** = `https://edugame-website-one.vercel.app` |
 | `SUPABASE_SERVICE_ROLE_KEY` | server-only | ❌ chỉ khi thật cần | Key đặc quyền; KHÔNG bao giờ đưa vào client / commit |
 
 - File local: `.env.local` (đã gitignore).
@@ -86,3 +86,16 @@ npm run build
 | `gh` CLI | chưa cài |
 
 Quy tắc: không commit/push khi chưa được duyệt; không commit `.env.local`.
+
+## 6. Vercel (deploy 2026-10-31)
+
+| Mục | Giá trị |
+|---|---|
+| Vercel CLI | `65.9.0`, cài global tại `C:\Users\dovan\AppData\Roaming\npm` (Git Bash không tự có trên PATH) |
+| Gọi CLI | `"/c/Program Files/nodejs/node.exe" "$APPDATA/npm/node_modules/vercel/dist/vc.js" <command>` |
+| Đăng nhập | device flow `vercel login` → đang là `vananz123` (token lưu trong user profile của CLI, không nằm trong repo) |
+| Project | `vananz123s-projects/edugame-website` (`prj_WEOJfzQYw6zlBtJYqmH6DFKzqYnZ`), Next.js preset, Node 26.x |
+| Git integration | đã kết nối `vananz123/edugame-website` → `git push` tự deploy production |
+| Production URL | `https://edugame-website-one.vercel.app` |
+| Local link | `.vercel/` (đã ignore) và dòng `VERCEL_OIDC_TOKEN` do CLI tự thêm vào `.env.local` (`.env*` đã ignore) |
+| Ghi chú an toàn | không in giá trị env ra log; `vercel env pull` mặc định ghi `.env.local` → luôn truyền tên file tạm rồi xóa |

@@ -45,16 +45,18 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 - **Phase 7 (bổ sung)**: tách landing single-page thành nhiều trang (`/[locale]` trang chủ, `/about`, `/games`, `/features`, `/download`; `/docs` có từ Phase 6), navbar/footer/sitemap/metadata theo trang; làm mới giao diện theo hướng trắng–đen tối giản (bảng xám trung tính, bỏ token màu thương hiệu; nền mesh/grid nhạt, reveal khi cuộn, card hover lift nhẹ, CTA dải đen). Đã test browser vi/en + chuyển ngôn ngữ; sửa đồng bộ `<html lang>`.
 - Build/lint/typecheck pass (24 trang).
 - Phase 7 đã commit + push — `0f504d3` trên `origin/main`.
+- **Phase 5 (deploy)**: đã deploy Vercel — `https://edugame-website-one.vercel.app` (project `vananz123s-projects/edugame-website`, Git integration bật nên `git push` tự deploy). Env `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` / `NEXT_PUBLIC_SITE_URL` đã set cho Production + Preview và đã đối chiếu khớp `.env.local`. Chi tiết + lệnh CLI: [DEPLOYMENT.md](./DEPLOYMENT.md) §3, [ENVIRONMENT.md](./ENVIRONMENT.md) §6.
 
 **Chưa làm / blocker:**
-- Chưa deploy Vercel (Phase 5).
+- Chưa xác minh đăng nhập `/admin/login` trên production (cần mật khẩu admin — chỉ chủ dự án làm được).
 - Chưa có thông tin cá nhân thật, asset 5 game, link tải thật, nội dung guide thật (đang chờ chủ dự án — xem ROADMAP).
 
 ## 5. Việc cần làm tiếp (theo thứ tự)
 
-1. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin`.
-2. Viết guide thật (Markdown + ảnh + video) qua `/admin/guides`.
-3. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
+1. Đăng nhập `https://edugame-website-one.vercel.app/admin/login` để xác nhận auth hoạt động trên production.
+2. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin` → trang public tự cập nhật (revalidate), không cần deploy lại.
+3. Viết guide thật (Markdown + ảnh + video) qua `/admin/guides`.
+4. (Tùy chọn) gắn domain riêng → cập nhật `NEXT_PUBLIC_SITE_URL` trên Vercel rồi redeploy.
 
 Chi tiết từng giai đoạn: [ROADMAP.md](./ROADMAP.md).
 

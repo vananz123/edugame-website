@@ -12,9 +12,9 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Phase 2 | Website công khai song ngữ | ✅ xong |
 | Phase 3 | Supabase schema + RLS + data access | ✅ xong (migration đã áp dụng) |
 | Phase 4 | Admin dashboard | ✅ xong (đã test CRUD trong browser) |
-| Phase 5 | Kiểm thử tổng thể + triển khai | 🔄 test admin xong; còn deploy |
+| Phase 5 | Kiểm thử tổng thể + triển khai | ✅ test + deploy Vercel xong (còn kiểm tra login production) |
 | Phase 6 | Docs/Hướng dẫn (bổ sung ngoài brief) | ✅ xong (migration 0003 đã áp dụng + đã test browser) |
-| Phase 7 | Tách trang + làm mới giao diện (bổ sung ngoài brief) | ✅ code + test xong, chờ duyệt commit |
+| Phase 7 | Tách trang + làm mới giao diện + trắng–đen (bổ sung ngoài brief) | ✅ xong (`0f504d3`, đã push + đã deploy) |
 
 ## Phase 1 — Environment Inspection
 
@@ -70,7 +70,10 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ Dọn 2 orphan media object/row còn lại từ lúc test (storage + bảng `media`, xác minh còn 0)
 - ✅ Dọn game test ẩn `[Test2]` (row + ảnh) — còn đúng 5 game seed
 - ⬜ Kiểm tra không lộ secret (đã grep src: không có service-role/key)
-- ⬜ Deploy Vercel + cấu hình env production + Supabase redirect URLs (xem DEPLOYMENT.md)
+- ✅ Deploy Vercel qua Git integration — production: `https://edugame-website-one.vercel.app` (mục 3 DEPLOYMENT.md)
+- ✅ Env production + preview: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (khớp `.env.local`, trỏ đúng project `kosieqrqabcrvmvzbemt`), `NEXT_PUBLIC_SITE_URL` = domain Vercel
+- ✅ Smoke test production: `/vi`, `/en`, `/vi/games`, `/vi/about`, `/en/features`, `/vi/docs` = 200; `/admin` → 307 `/admin/login`; sitemap + robots dùng domain thật; client bundle không chứa JWT/service-role key
+- ⬜ Chủ dự án tự đăng nhập `/admin/login` trên production (cần mật khẩu) — Supabase Auth không bắt redirect URL cho email+password
 - ✅ Cập nhật HANDOVER.md với trạng thái cuối
 
 ## Phase 6 — Docs / Hướng dẫn (bổ sung ngoài brief)
@@ -103,7 +106,7 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Tên + mô tả + screenshot 5 game types | Phase 2/3 | ⬜ |
 | Link tải Windows thật + version + release notes | Phase 2/3 | ⬜ (brief cấm bịa) |
 | Tài khoản admin Supabase Auth (email) + insert `admin_users` | Phase 4 | ✅ `dovanan.bth2017@gmail.com` |
-| Tài khoản Vercel + tên miền mong muốn | Phase 5 | ⬜ |
+| Tài khoản Vercel + tên miền mong muốn | Phase 5 | ✅ đã deploy `https://edugame-website-one.vercel.app`; domain riêng (tùy chọn) chưa có |
 | Duyệt migration SQL trước khi áp dụng | Phase 3 | ✅ đã duyệt + đã áp dụng |
 | Duyệt commit + push code Phase 3/4 | Phase 3/4 | ✅ đã commit `cb419ed` + `bccc684`, đã push `origin/main` |
 | Duyệt + áp migration `0003_guides.sql` | Phase 6 | ✅ đã duyệt + đã áp dụng |
