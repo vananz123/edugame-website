@@ -25,6 +25,9 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
+        <noscript>
+          <style>{`.reveal{opacity:1;transform:none}`}</style>
+        </noscript>
         {children}
       </body>
     </html>

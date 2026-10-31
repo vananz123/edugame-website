@@ -13,12 +13,14 @@ export function Footer({
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border/60 bg-muted/20">
+    <footer className="relative border-t border-border/60 bg-muted/20">
       <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 font-semibold">
-              <GraduationCap className="size-5 text-primary" />
+              <span className="flex size-8 items-center justify-center rounded-xl bg-foreground text-background">
+                <GraduationCap className="size-4.5" />
+              </span>
               <span>EduGame Studio</span>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">{t("tagline")}</p>
@@ -28,12 +30,17 @@ export function Footer({
             <h3 className="text-sm font-semibold">{t("productHeading")}</h3>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="/#product" className="hover:text-foreground">
+                <Link href="/about" className="hover:text-foreground">
                   {t("about")}
                 </Link>
               </li>
               <li>
-                <Link href="/#features" className="hover:text-foreground">
+                <Link href="/games" className="hover:text-foreground">
+                  {t("games")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/features" className="hover:text-foreground">
                   {t("features")}
                 </Link>
               </li>
@@ -43,7 +50,7 @@ export function Footer({
                 </Link>
               </li>
               <li>
-                <Link href="/#download" className="hover:text-foreground">
+                <Link href="/download" className="hover:text-foreground">
                   {t("download")}
                 </Link>
               </li>
@@ -64,7 +71,7 @@ export function Footer({
                 </a>
               </li>
               <li>
-                <Link href="/" className="hover:text-foreground">
+                <Link href="/about" className="hover:text-foreground">
                   EduGame Studio
                 </Link>
               </li>

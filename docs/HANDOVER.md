@@ -42,17 +42,20 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 - **Dọn dữ liệu test**: 2 orphan media (storage + row) và game test ẩn `[Test2]` đã xóa; DB còn đúng 5 game seed, `media` = 0.
 - **Phase 6 (bổ sung)**: module Docs/Hướng dẫn — migration `0003_guides.sql` (**đã áp dụng**: bảng `guides` + RLS + index), public `/[locale]/docs` + `/[locale]/docs/[slug]` (Markdown không raw HTML, ảnh, video YouTube/Vimeo/Drive qua allowlist), admin `/admin/guides` (CRUD, cover upload + xóa cover cũ, draft/publish, sắp xếp), nav/footer/sitemap/i18n.
 - **Đã test Phase 6 trong browser**: tạo + publish guide (Markdown vi/en + video) → hiện ở `/vi/docs` và `/en/docs`; sửa title → public cập nhật (revalidate); upload cover → hiện trên trang chi tiết; xóa guide → public 404 và storage object + row `media` được dọn sạch. Guide test đã xóa, DB guides = 0 (chờ nội dung thật).
-- Build/lint/typecheck pass (16 route).
+- **Phase 7 (bổ sung)**: tách landing single-page thành nhiều trang (`/[locale]` trang chủ, `/about`, `/games`, `/features`, `/download`; `/docs` có từ Phase 6), navbar/footer/sitemap/metadata theo trang; làm mới giao diện theo hướng trắng–đen tối giản (bảng xám trung tính, bỏ token màu thương hiệu; nền mesh/grid nhạt, reveal khi cuộn, card hover lift nhẹ, CTA dải đen). Đã test browser vi/en + chuyển ngôn ngữ; sửa đồng bộ `<html lang>`.
+- Build/lint/typecheck pass (24 trang).
 
 **Chưa làm / blocker:**
+- Code Phase 7 **chưa commit** (chờ duyệt).
 - Chưa deploy Vercel (Phase 5).
 - Chưa có thông tin cá nhân thật, asset 5 game, link tải thật, nội dung guide thật (đang chờ chủ dự án — xem ROADMAP).
 
 ## 5. Việc cần làm tiếp (theo thứ tự)
 
-1. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin`.
-2. Viết guide thật (Markdown + ảnh + video) qua `/admin/guides`.
-3. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
+1. Duyệt commit + push code Phase 7 (kèm docs).
+2. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin`.
+3. Viết guide thật (Markdown + ảnh + video) qua `/admin/guides`.
+4. Kiểm thử tổng thể + deploy Vercel (Phase 5, DEPLOYMENT.md).
 
 Chi tiết từng giai đoạn: [ROADMAP.md](./ROADMAP.md).
 

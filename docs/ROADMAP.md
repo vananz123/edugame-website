@@ -14,6 +14,7 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Phase 4 | Admin dashboard | ✅ xong (đã test CRUD trong browser) |
 | Phase 5 | Kiểm thử tổng thể + triển khai | 🔄 test admin xong; còn deploy |
 | Phase 6 | Docs/Hướng dẫn (bổ sung ngoài brief) | ✅ xong (migration 0003 đã áp dụng + đã test browser) |
+| Phase 7 | Tách trang + làm mới giao diện (bổ sung ngoài brief) | ✅ code + test xong, chờ duyệt commit |
 
 ## Phase 1 — Environment Inspection
 
@@ -84,6 +85,16 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ Dọn guide test sau khi kiểm thử; DB guides = 0, media = 0 (nội dung thật chờ chủ dự án)
 - ✅ Commit + push code Phase 6 — `7555931` trên `origin/main`
 
+## Phase 7 — Tách trang + làm mới giao diện (bổ sung ngoài brief)
+
+- ✅ Tách landing single-page thành: trang chủ + `/about`, `/games`, `/features`, `/download` (docs đã có từ Phase 6)
+- ✅ Navbar/footer chuyển sang route trang, có active state; sitemap + metadata/hreflang cho từng trang
+- ✅ Giao diện trắng–đen tối giản: bảng xám trung tính (bỏ token màu thương hiệu), nền mesh/grid nhạt, reveal khi cuộn, card hover lift nhẹ, CTA dải đen, logo tile đen
+- ✅ Trang chủ mới: hero 2 cột + stats + highlights + preview game/tính năng + CTA
+- ✅ `lint` + `typecheck` + `build` pass (24 trang); browser test `/vi`, `/en` và 4 trang con: 200, nav active đúng, canonical đúng, chuyển ngôn ngữ giữ đúng route (kể cả `/download`), console sạch
+- ✅ Sửa lỗi `<html lang>` không cập nhật khi chuyển ngôn ngữ client-side (`LocaleLangSync`)
+- ⬜ Commit + push code Phase 7 (chờ duyệt)
+
 ## Việc cần chủ dự án cung cấp / quyết định
 
 | Việc | Cần cho | Trạng thái |
@@ -97,4 +108,5 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Duyệt commit + push code Phase 3/4 | Phase 3/4 | ✅ đã commit `cb419ed` + `bccc684`, đã push `origin/main` |
 | Duyệt + áp migration `0003_guides.sql` | Phase 6 | ✅ đã duyệt + đã áp dụng |
 | Duyệt commit + push code Phase 6 | Phase 6 | ✅ `7555931`, đã push `origin/main` |
+| Duyệt commit + push code Phase 7 | Phase 7 | ⬜ chờ duyệt |
 | Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | ⬜ (guide test đã dọn, DB trống) |

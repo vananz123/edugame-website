@@ -17,6 +17,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     alternates: { languages },
   }));
 
+  const pages = ["about", "games", "features", "download"] as const;
+  const pageEntries: MetadataRoute.Sitemap = pages.flatMap((page) =>
+    routing.locales.map((locale) => ({
+      url: `${baseUrl}/${locale}/${page}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          routing.locales.map((l) => [l, `${baseUrl}/${l}/${page}`])
+        ),
+      },
+    }))
+  );
+
   const docs: MetadataRoute.Sitemap = routing.locales.map((locale) => ({
     url: `${baseUrl}/${locale}/docs`,
     lastModified: new Date(),
@@ -47,5 +62,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   );
 
-  return [...home, ...docs, ...guideEntries];
+  return [...home, ...pageEntries, ...docs, ...guideEntries];
 }

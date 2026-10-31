@@ -1,13 +1,13 @@
 # ARCHITECTURE — EduGame Website
 
-> Tài liệu mô tả kiến trúc **đã triển khai** (Phase 2–6). Cập nhật file này khi kiến trúc thực tế thay đổi.
+> Tài liệu mô tả kiến trúc **đã triển khai** (Phase 2–7). Cập nhật file này khi kiến trúc thực tế thay đổi.
 
 ## 1. Tech stack
 
 | Lớp | Công nghệ | Ghi chú |
 |---|---|---|
 | Framework | Next.js (App Router) + TypeScript | Server Components mặc định |
-| UI | Tailwind CSS + shadcn/ui + lucide-react | Light theme, accent xanh/tím nhẹ |
+| UI | Tailwind CSS + shadcn/ui + lucide-react | Light theme, trắng–đen tối giản (xám trung tính) |
 | i18n | next-intl | `/vi` mặc định, `/en` |
 | Database | Supabase PostgreSQL | Free tier |
 | Auth | Supabase Auth | Chỉ admin, email + password |
@@ -29,8 +29,12 @@ edugame-website/
 │   ├── app/
 │   │   ├── layout.tsx        # Root <html lang> duy nhất (getLocale)
 │   │   ├── [locale]/         # Public: /vi, /en
-│   │   │   ├── layout.tsx    # NextIntlClientProvider (không <html>)
-│   │   │   ├── page.tsx      # Landing single-page
+│   │   │   ├── layout.tsx    # NextIntlClientProvider (không <html>) + LocaleLangSync
+│   │   │   ├── page.tsx      # Trang chủ: hero + stats + highlights + preview + CTA
+│   │   │   ├── about/        # Giới thiệu + tổng quan sản phẩm
+│   │   │   ├── games/        # Toàn bộ thư viện game
+│   │   │   ├── features/     # Toàn bộ tính năng
+│   │   │   ├── download/     # Tải xuống
 │   │   │   └── docs/         # Danh sách + chi tiết hướng dẫn (Markdown)
 │   │   ├── admin/
 │   │   │   ├── login/        # Ngoài guard
@@ -44,13 +48,15 @@ edugame-website/
 │   │   ├── sitemap.ts
 │   │   └── robots.ts
 │   ├── components/
-│   │   ├── public/           # Navbar, Hero, GameShowcase, Markdown, ...
+│   │   ├── public/           # Navbar, Hero, StatsStrip, Highlights, PageHeader,
+│   │   │                     # CtaSection, Reveal, Markdown, ...
 │   │   └── ui/               # shadcn/ui (Base UI)
 │   ├── lib/
 │   │   ├── supabase/         # public.ts, server.ts, client.ts
 │   │   ├── data/             # types.ts, public.ts, guides.ts
 │   │   ├── admin/            # revalidate.ts
 │   │   ├── video.ts          # URL embed YouTube/Vimeo/Drive
+│   │   ├── page-metadata.ts  # metadata + hreflang cho trang con
 │   │   └── auth.ts           # requireAdmin() server-side
 │   └── proxy.ts              # next-intl locale (Next 16 "proxy", thay middleware)
 ├── .env.example              # Placeholder, được commit
@@ -207,3 +213,21 @@ Tính năng bổ sung ngoài brief gốc (2026-10-31): cho phép đăng tài li�
 - Admin `/admin/guides`: CRUD, cover upload (`guides/<uuid>.<ext>`), nút Copy snippet Markdown ảnh, draft/publish, sắp xếp; cover cũ tự dọn khi thay/xóa.
 - Revalidate sau khi lưu: `revalidatePublic()` + `revalidatePath("/vi/docs", "layout")` / `("/en/docs", "layout")` (hàm `revalidateDocs()` trong `guides/actions.ts`).
 - Khi bảng `guides` chưa tồn tại: trang public hiển thị empty state, admin hiển thị bảng rỗng (query lỗi được bỏ qua) — không crash.
+
+## 11. Phase 7 — Tách trang + làm mới giao diện
+
+Thay landing single-page bằng site nhiều trang (2026-10-31), giữ nguyên dữ liệu Supabase và i18n.
+
+**Route public:** `/[locale]` (trang chủ), `/[locale]/about`, `/[locale]/games`, `/[locale]/features`, `/[locale]/download`, `/[locale]/docs` (+ chi tiết). Navbar/footer trỏ tới trang; active state theo `usePathname`; sitemap + metadata/hreflang cho từng trang (`src/lib/page-metadata.ts`).
+
+**Bố cục trang chủ:** Hero → StatsStrip → Highlights (3 card dẫn tới /features, /games) → preview 3 game → preview 3 tính năng → CtaSection. Các trang con dùng `PageHeader` (tiêu đề + mô tả + nền mesh trung tính) rồi render section đầy đủ.
+
+**Hệ thống visual (trắng–đen tối giản):**
+- Không dùng token thương hiệu màu; toàn bộ giao diện public theo bảng xám trung tính của shadcn: nền `background` trắng, chữ `foreground` gần đen, `primary` gần đen (dark mode đảo lại). Nhấn mạnh bằng tương phản đậm/nhạt, không bằng hue.
+- Utility trong `globals.css`: `.bg-mesh` (radial gradient xám rất nhạt), `.bg-grid` (lưới mờ), `.reveal` (fade-up khi cuộn). Không còn blob/float animation.
+- `Reveal` (client, IntersectionObserver) tự hiện ngay nếu phần tử nằm trong viewport đầu; tôn trọng `prefers-reduced-motion`; có `<noscript>` fallback để nội dung vẫn hiện khi tắt JS.
+- Card/pill dùng `bg-muted`, `border-border`, icon tile `bg-foreground text-background`; hover lift nhẹ + `shadow-md` trung tính. Ảnh game thiếu asset dùng placeholder `bg-muted` (không bịa screenshot).
+- CTA cuối trang là dải đen `bg-foreground text-background` với nút trắng; navbar/footer dùng logo tile đen.
+- `LocaleLangSync` đồng bộ `<html lang>` khi chuyển ngôn ngữ phía client.
+
+**Lưu ý Tailwind v4:** class tự viết phải nằm trong `@layer components` (đặt trong `@layer utilities` bị loại khỏi bundle).

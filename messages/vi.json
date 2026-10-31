@@ -25,7 +25,59 @@
     "description": "EduGame Studio giúp giáo viên tạo game giáo dục từ giáo án và học liệu, với AI hỗ trợ soạn câu hỏi và hoạt động offline ngay trên lớp.",
     "ctaPrimary": "Tải EduGame Studio",
     "ctaSecondary": "Khám phá ứng dụng",
-    "screenshotAlt": "Ảnh chụp màn hình ứng dụng EduGame Studio (placeholder)"
+    "screenshotAlt": "Ảnh chụp màn hình ứng dụng EduGame Studio (placeholder)",
+    "chips": ["Windows desktop", "Hoạt động offline", "AI cục bộ"]
+  },
+  "home": {
+    "stats": [
+      { "value": "5", "label": "Loại game tương tác" },
+      { "value": "AI", "label": "Hỗ trợ soạn câu hỏi" },
+      { "value": "Offline", "label": "Chạy không cần mạng" },
+      { "value": "Windows", "label": "Ứng dụng desktop" }
+    ],
+    "highlightsHeading": "Từ giáo án đến tiết học sôi động",
+    "highlightsSubtitle": "EduGame Studio gói gọn việc tạo game, soạn câu hỏi và trình chiếu trong một quy trình thân thiện với giáo viên.",
+    "highlights": {
+      "create": {
+        "title": "Tạo game từ bài giảng",
+        "description": "Biến giáo án và học liệu thành game giáo dục chỉ trong vài bước."
+      },
+      "ai": {
+        "title": "AI hỗ trợ soạn câu hỏi",
+        "description": "AI chạy cục bộ, gợi ý câu hỏi nhanh mà không phụ thuộc đám mây."
+      },
+      "play": {
+        "title": "Chơi tương tác trên lớp",
+        "description": "Trình chiếu và tổ chức gameplay trực tiếp, biến tiết học thành trải nghiệm."
+      }
+    },
+    "highlightsMore": "Tìm hiểu thêm",
+    "viewAllGames": "Xem tất cả 5 loại game",
+    "viewAllFeatures": "Xem tất cả tính năng"
+  },
+  "pages": {
+    "about": {
+      "title": "Giới thiệu",
+      "description": "Người đứng sau EduGame Studio và lý do sản phẩm này ra đời."
+    },
+    "games": {
+      "title": "Thư viện game",
+      "description": "Năm loại game tương tác hiện có trong EduGame Studio, sẵn sàng cho lớp học của bạn."
+    },
+    "features": {
+      "title": "Tính năng",
+      "description": "Những gì EduGame Studio giúp giáo viên làm được — từ tạo game đến trình chiếu trên lớp."
+    },
+    "download": {
+      "title": "Tải xuống",
+      "description": "Tải EduGame Studio cho Windows và bắt đầu tạo bài học tương tác."
+    }
+  },
+  "cta": {
+    "title": "Sẵn sàng biến bài giảng thành game?",
+    "description": "Tải EduGame Studio cho Windows và tạo tiết học tương tác đầu tiên của bạn.",
+    "download": "Tải cho Windows",
+    "docs": "Xem hướng dẫn"
   },
   "about": {
     "heading": "Người sáng tạo",
@@ -98,6 +150,7 @@
     "contactHeading": "Liên hệ",
     "rights": "© {year} [Tên của bạn]. Bảo lưu mọi quyền.",
     "about": "Giới thiệu",
+    "games": "Thư viện game",
     "features": "Tính năng",
     "docs": "Hướng dẫn",
     "download": "Tải xuống",

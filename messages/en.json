@@ -25,7 +25,59 @@
     "description": "EduGame Studio helps teachers create educational games from lesson plans and teaching materials, with AI-assisted question generation and an offline-first workflow.",
     "ctaPrimary": "Download EduGame Studio",
     "ctaSecondary": "Explore the app",
-    "screenshotAlt": "EduGame Studio application screenshot (placeholder)"
+    "screenshotAlt": "EduGame Studio application screenshot (placeholder)",
+    "chips": ["Windows desktop", "Works offline", "Local AI"]
+  },
+  "home": {
+    "stats": [
+      { "value": "5", "label": "Interactive game types" },
+      { "value": "AI", "label": "Question assistance" },
+      { "value": "Offline", "label": "No internet needed" },
+      { "value": "Windows", "label": "Desktop app" }
+    ],
+    "highlightsHeading": "From lesson plan to a lively classroom",
+    "highlightsSubtitle": "EduGame Studio bundles game creation, question writing and classroom presentation into one teacher-friendly workflow.",
+    "highlights": {
+      "create": {
+        "title": "Create games from lessons",
+        "description": "Turn lesson plans and teaching materials into educational games in a few steps."
+      },
+      "ai": {
+        "title": "AI-assisted questions",
+        "description": "Local AI suggests questions quickly without relying on the cloud."
+      },
+      "play": {
+        "title": "Interactive classroom play",
+        "description": "Present and run gameplay live, turning each lesson into an experience."
+      }
+    },
+    "highlightsMore": "Learn more",
+    "viewAllGames": "See all 5 game types",
+    "viewAllFeatures": "See all features"
+  },
+  "pages": {
+    "about": {
+      "title": "About",
+      "description": "The person behind EduGame Studio and why this product exists."
+    },
+    "games": {
+      "title": "Game showcase",
+      "description": "The five interactive game types available in EduGame Studio, ready for your classroom."
+    },
+    "features": {
+      "title": "Features",
+      "description": "What EduGame Studio helps teachers do — from creating games to presenting in class."
+    },
+    "download": {
+      "title": "Download",
+      "description": "Download EduGame Studio for Windows and start building interactive lessons."
+    }
+  },
+  "cta": {
+    "title": "Ready to turn lessons into games?",
+    "description": "Download EduGame Studio for Windows and create your first interactive lesson.",
+    "download": "Download for Windows",
+    "docs": "View guides"
   },
   "about": {
     "heading": "The creator",
@@ -98,6 +150,7 @@
     "contactHeading": "Contact",
     "rights": "© {year} [Your name]. All rights reserved.",
     "about": "About",
+    "games": "Games",
     "features": "Features",
     "docs": "Guides",
     "download": "Download",
