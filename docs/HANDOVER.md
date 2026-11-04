@@ -1,6 +1,6 @@
 # HANDOVER — Checklist bàn giao dự án
 
-Cập nhật: 2026-10-31. Người tiếp nhận đọc file này + [README.md](./README.md) là nắm được toàn bộ.
+Cập nhật: 2026-11-04. Người tiếp nhận đọc file này + [README.md](./README.md) là nắm được toàn bộ.
 
 ## 1. Dự án là gì
 
@@ -28,7 +28,7 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 
 `.env.local` đã được gitignore. `.env.example` (placeholder) là file được commit.
 
-## 4. Trạng thái hiện tại (2026-10-31)
+## 4. Trạng thái hiện tại (2026-11-04)
 
 **Đã xong:**
 - Git repo + remote; commit `7772e28` (`.gitignore`), `903fd57` (Phase 2 + docs), `cb419ed` (Phase 3–4), `bccc684` (dọn media + Toaster + docs), `ef71e8e` (đồng bộ docs trạng thái), `7555931` (Phase 6 — docs/guides), đã push `origin/main`.
@@ -46,17 +46,21 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 - Build/lint/typecheck pass (24 trang).
 - Phase 7 đã commit + push — `0f504d3` trên `origin/main`.
 - **Phase 5 (deploy)**: đã deploy Vercel — `https://edugame-website-one.vercel.app` (project `vananz123s-projects/edugame-website`, Git integration bật nên `git push` tự deploy). Env `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` / `NEXT_PUBLIC_SITE_URL` đã set cho Production + Preview và đã đối chiếu khớp `.env.local`. Chi tiết + lệnh CLI: [DEPLOYMENT.md](./DEPLOYMENT.md) §3, [ENVIRONMENT.md](./ENVIRONMENT.md) §6.
+- **Phase 8 (nội dung thật)**: chữ placeholder **về sản phẩm** trên site đã được thay bằng sự kiện lọc từ tài liệu dự án EduGame Studio (5 thể loại game đúng tên trong app, wizard 5 bước, AI cục bộ llama.cpp + Qwen3.5, trình chiếu màn 2, chơi LAN, SQLite + `.egame`, bộ cài 0.4.0 ~87,9 MB ngày 04/11/2026, yêu cầu RAM 4/8 GB, chưa ký số). Riêng tên/bio/email tác giả và nhãn "screenshot (placeholder)" **giữ nguyên** vì tài liệu không chứa thông tin đó — không bịa. Đã viết vào `messages/vi.json` + `messages/en.json` (fallback) **và** `supabase/migrations/0004_real_content.sql` (DB = nguồn của production) kèm 2 bài guide Markdown vi/en. `release_date` giờ format theo locale. **Migration 0004 chưa áp dụng** — production vẫn đang hiện placeholder của `0002_seed.sql` cho tới khi chủ dự án duyệt + dán SQL.
 
 **Chưa làm / blocker:**
 - Chưa xác minh đăng nhập `/admin/login` trên production (cần mật khẩu admin — chỉ chủ dự án làm được).
-- Chưa có thông tin cá nhân thật, asset 5 game, link tải thật, nội dung guide thật (đang chờ chủ dự án — xem ROADMAP).
+- ⬜ Duyệt + áp `0004_real_content.sql` (SQL đã review tĩnh: chỉ UPDATE/UPSERT, không xoá row, không đổi schema) → sau đó trang public + `/docs` đổi nội dung trong ~60s revalidate.
+- Chưa có **link tải thật** (`downloads.windows_url` để trống, nút tải đang trỏ `#`) — cần nơi phát hành công khai (GitHub Releases / host có băng thông) rồi dán qua `/admin/downloads`.
+- Chưa có thông tin cá nhân thật (tên/bio/email), screenshot 5 game, ảnh/video cho guide — tài liệu sản phẩm không chứa các mục này, không được bịa.
 
 ## 5. Việc cần làm tiếp (theo thứ tự)
 
-1. Đăng nhập `https://edugame-website-one.vercel.app/admin/login` để xác nhận auth hoạt động trên production.
-2. Điền thông tin thật (tên/bio/contact, 5 game, link tải) qua dashboard `/admin` → trang public tự cập nhật (revalidate), không cần deploy lại.
-3. Viết guide thật (Markdown + ảnh + video) qua `/admin/guides`.
-4. (Tùy chọn) gắn domain riêng → cập nhật `NEXT_PUBLIC_SITE_URL` trên Vercel rồi redeploy.
+1. Duyệt `supabase/migrations/0004_real_content.sql` → dán vào Supabase SQL Editor → Run (project `kosieqrqabcrvmvzbemt`). Không cần deploy lại.
+2. Đăng nhập `https://edugame-website-one.vercel.app/admin/login` để xác nhận auth hoạt động trên production.
+3. Tạo link tải công khai cho `EduGame-Studio-Setup-0.4.0.exe` rồi dán vào `/admin/downloads` (kèm kiểm tra SHA-256 có hiện đúng).
+4. Bổ sung qua `/admin`: tên/bio/email thật, screenshot từng game, ảnh/video trong `/admin/guides`.
+5. (Tùy chọn) gắn domain riêng → cập nhật `NEXT_PUBLIC_SITE_URL` trên Vercel rồi redeploy.
 
 Chi tiết từng giai đoạn: [ROADMAP.md](./ROADMAP.md).
 

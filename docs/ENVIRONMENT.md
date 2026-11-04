@@ -1,6 +1,6 @@
 # ENVIRONMENT — Môi trường & biến cấu hình
 
-Cập nhật: 2026-10-31
+Cập nhật: 2026-11-04
 
 ## 1. Biến môi trường
 
@@ -24,15 +24,15 @@ Cập nhật: 2026-10-31
 | Auth service | ✅ hoạt động (`/auth/v1/health` → 200) |
 | Storage | ✅ truy cập được (`/storage/v1/bucket` → 200) |
 | Publishable key | ✅ hợp lệ (REST không trả 401) |
-| Schema `public` | ✅ `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** (6 bảng gồm `guides`, RLS, bucket `media`) |
+| Schema `public` | ✅ `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** (6 bảng gồm `guides`, RLS, bucket `media`); ⬜ `0004_real_content.sql` (nội dung thật + 2 guide) **chưa áp dụng — chờ chủ dự án duyệt** |
 | Admin | ✅ Auth user + allowlist `admin_users` đã tạo (`dovanan.bth2017@gmail.com`) |
 | MCP quản trị DB | ❌ không có; chỉ có `supabase:search_docs` → thao tác SQL qua Dashboard |
 
-> Trang public vẫn có fallback `messages` khi bảng rỗng. Trang `/docs` hiển thị empty state khi chưa có guide published; admin hiển thị bảng rỗng. Data access xử lý lỗi missing-table an toàn (không crash). Admin CRUD cần cả migration + email trong `admin_users` (§3).
+> Trang public đọc DB trước, fallback `messages` khi DB trống. Hiện **DB vẫn là placeholder của `0002_seed.sql`** (5 game `[Game 1..5]`, downloads rỗng) nên production vẫn hiển thị chữ placeholder cho tới khi `0004_real_content.sql` được duyệt + áp dụng; `messages/*.json` đã có nội dung thật nên local chạy kiểu fallback là đúng. Trang `/docs` hiển thị empty state khi chưa có guide published; admin hiển thị bảng rỗng. Data access xử lý lỗi missing-table an toàn (không crash). Admin CRUD cần cả migration + email trong `admin_users` (§3).
 
 ## 3. Chạy migration thủ công (khi chưa có MCP DB)
 
-> Project hiện tại **đã áp dụng** cả `0001` + `0002` + `0003`. Phần dưới dùng khi dựng project Supabase mới (staging/prod) hoặc reset.
+> Project hiện tại **đã áp dụng** `0001` + `0002` + `0003`; `0004_real_content.sql` **chưa chạy** (chờ duyệt). Phần dưới dùng khi dựng project Supabase mới (staging/prod) hoặc reset.
 
 Cách A — Supabase Dashboard:
 1. Mở project → SQL Editor.
@@ -45,7 +45,7 @@ supabase link --project-ref kosieqrqabcrvmvzbemt
 supabase db push
 ```
 
-Thứ tự: `0001_init.sql` (schema + RLS + storage) → `0002_seed.sql` (placeholder, idempotent) → `0003_guides.sql` (bảng `guides` cho Docs, idempotent).
+Thứ tự: `0001_init.sql` (schema + RLS + storage) → `0002_seed.sql` (placeholder, idempotent) → `0003_guides.sql` (bảng `guides` cho Docs, idempotent) → `0004_real_content.sql` (nội dung thật thay placeholder + 2 guide; UPDATE-only, idempotent).
 
 ### Tạo tài khoản admin (bắt buộc để vào dashboard)
 

@@ -98,13 +98,24 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 - ✅ Sửa lỗi `<html lang>` không cập nhật khi chuyển ngôn ngữ client-side (`LocaleLangSync`)
 - ✅ Commit + push code Phase 7 — `0f504d3` trên `origin/main`
 
+## Phase 8 — Nội dung thật lọc từ tài liệu sản phẩm (bổ sung ngoài brief)
+
+Nguồn: thư mục tài liệu dự án EduGame Studio (`STATUS.md`, `ROADMAP.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `BENCHMARKS.md`, `PROJECT_MAP.md`, `implementation-plan.md`, cập nhật 2026-11-04). Chỉ đăng sự kiện có dòng chứng minh trong docs; mọi chỗ chưa có nguồn giữ nguyên placeholder.
+
+- ✅ `messages/vi.json` + `messages/en.json`: hero, `home.stats`/`home.highlights`, product, 5 thể loại game (tên thật trong app), 6 tính năng, khối download (0.4.0 · 87,9 MB · 04/11/2026 · yêu cầu máy · release notes) — thay toàn bộ chữ placeholder
+- ✅ `supabase/migrations/0004_real_content.sql`: cùng nội dung trên cho DB (nguồn thật của trang production) + 2 bài guide `tao-game-dau-tien`, `ai-cuc-bo-tren-may` — **UPDATE-only, không xoá row, không đổi schema, không đụng `screenshot_path`/`video_url`/`windows_url`/`about`/`contact`**
+- ⬜ Chủ dự án duyệt rồi dán `0004_real_content.sql` vào Supabase SQL Editor (AGENTS.md #4) — production chỉ đổi sau bước này
+- ✅ `release_date` format theo locale (`vi-VN` → `04/11/2026`, `en-US` → `11/04/2026`) trong `src/lib/data/public.ts`
+- ✅ `lint` + `typecheck` + `build` pass (24 trang); render thử `/vi` + `/en` (fallback messages, DB tắt): hero/stats/highlights/5 game/6 tính năng/download 200, đúng chữ mới
+- Không bịa: **link tải vẫn trống** (`windows_url` = `''` → nút tải là `#`) cho tới khi có bản phát hành công khai; tên/bio/email tác giả vẫn placeholder vì tài liệu sản phẩm không có thông tin cá nhân
+
 ## Việc cần chủ dự án cung cấp / quyết định
 
 | Việc | Cần cho | Trạng thái |
 |---|---|---|
-| Thông tin cá nhân thật (tên, bio, link GitHub, contact) | Phase 2 | ⬜ đang dùng placeholder |
-| Tên + mô tả + screenshot 5 game types | Phase 2/3 | ⬜ |
-| Link tải Windows thật + version + release notes | Phase 2/3 | ⬜ (brief cấm bịa) |
+| Thông tin cá nhân thật (tên, bio, link GitHub, contact) | Phase 2 | ⬜ đang dùng placeholder — tài liệu sản phẩm không có thông tin tác giả |
+| Tên + mô tả + screenshot 5 game types | Phase 2/3 | 🟡 tên + mô tả thật đã lọc từ docs (chờ áp `0004`); screenshot vẫn trống |
+| Link tải Windows thật + version + release notes | Phase 2/3 | 🟡 version 0.4.0 + dung lượng + ngày + release notes lấy từ docs; ⬜ **link tải** (brief cấm bịa) |
 | Tài khoản admin Supabase Auth (email) + insert `admin_users` | Phase 4 | ✅ `dovanan.bth2017@gmail.com` |
 | Tài khoản Vercel + tên miền mong muốn | Phase 5 | ✅ đã deploy `https://edugame-website-one.vercel.app`; domain riêng (tùy chọn) chưa có |
 | Duyệt migration SQL trước khi áp dụng | Phase 3 | ✅ đã duyệt + đã áp dụng |
@@ -112,4 +123,6 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 | Duyệt + áp migration `0003_guides.sql` | Phase 6 | ✅ đã duyệt + đã áp dụng |
 | Duyệt commit + push code Phase 6 | Phase 6 | ✅ `7555931`, đã push `origin/main` |
 | Duyệt commit + push code Phase 7 | Phase 7 | ✅ `0f504d3`, đã push `origin/main` |
-| Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | ⬜ (guide test đã dọn, DB trống) |
+| Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | 🟡 2 bài Markdown vi/en soạn từ docs (chờ áp `0004`); chưa có ảnh/video |
+| **Duyệt + áp migration `0004_real_content.sql`** | Phase 8 | ⬜ chờ chủ dự án review SQL rồi dán vào Supabase SQL Editor |
+| Duyệt commit + push code Phase 8 | Phase 8 | ⬜ |

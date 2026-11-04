@@ -5,7 +5,7 @@
 ## 1. Điều kiện trước khi deploy
 
 - [x] Code Phase 2–6 hoàn thành, `lint` + `tsc` + `build` pass.
-- [x] Supabase đã có schema + RLS + Storage policy (migration `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** trong project `kosieqrqabcrvmvzbemt`).
+- [x] Supabase đã có schema + RLS + Storage policy (migration `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** trong project `kosieqrqabcrvmvzbemt`). Riêng `0004_real_content.sql` (nội dung thật, không đổi schema) **chờ chủ dự án duyệt + áp**.
 - [x] Đã tạo tài khoản admin trong Supabase Auth + insert `admin_users` (✅ `dovanan.bth2017@gmail.com`).
 - [x] Có tài khoản Vercel (`vananz123`, scope `vananz123s-projects`) và domain mặc định `edugame-website-one.vercel.app`. Tên miền riêng: chưa dùng.
 

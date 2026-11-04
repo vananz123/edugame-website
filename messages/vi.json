@@ -21,34 +21,34 @@
   },
   "hero": {
     "badge": "Ứng dụng Windows dành cho giáo viên",
-    "title": "Biến bài giảng thành trải nghiệm học tập tương tác",
-    "description": "EduGame Studio giúp giáo viên tạo game giáo dục từ giáo án và học liệu, với AI hỗ trợ soạn câu hỏi và hoạt động offline ngay trên lớp.",
+    "title": "Biến giáo án thành trò chơi tương tác ngay trên lớp",
+    "description": "EduGame Studio đọc giáo án và học liệu của bạn, gợi ý câu hỏi bằng AI chạy ngay trên máy, rồi dựng thành năm loại trò chơi — vẫn chơi được khi lớp không có mạng.",
     "ctaPrimary": "Tải EduGame Studio",
     "ctaSecondary": "Khám phá ứng dụng",
     "screenshotAlt": "Ảnh chụp màn hình ứng dụng EduGame Studio (placeholder)",
-    "chips": ["Windows desktop", "Hoạt động offline", "AI cục bộ"]
+    "chips": ["Windows 10/11 64-bit", "AI chạy trên máy", "Chơi offline"]
   },
   "home": {
     "stats": [
-      { "value": "5", "label": "Loại game tương tác" },
-      { "value": "AI", "label": "Hỗ trợ soạn câu hỏi" },
-      { "value": "Offline", "label": "Chạy không cần mạng" },
-      { "value": "Windows", "label": "Ứng dụng desktop" }
+      { "value": "5", "label": "Loại trò chơi có sẵn" },
+      { "value": "AI", "label": "Chạy cục bộ bằng llama.cpp" },
+      { "value": "Offline", "label": "Không cần internet" },
+      { "value": "Windows", "label": "Ứng dụng desktop 64-bit" }
     ],
     "highlightsHeading": "Từ giáo án đến tiết học sôi động",
-    "highlightsSubtitle": "EduGame Studio gói gọn việc tạo game, soạn câu hỏi và trình chiếu trong một quy trình thân thiện với giáo viên.",
+    "highlightsSubtitle": "Một ứng dụng gói gọn việc đọc tài liệu, soạn câu hỏi bằng AI, dựng trò chơi và trình chiếu trước lớp.",
     "highlights": {
       "create": {
-        "title": "Tạo game từ bài giảng",
-        "description": "Biến giáo án và học liệu thành game giáo dục chỉ trong vài bước."
+        "title": "Tạo game từ giáo án",
+        "description": "Đọc file DOCX, PDF, PPTX, TXT hoặc MD, rồi đi theo luồng năm bước: bóc cấu trúc, phân tích, gợi ý loại game, cấu hình và lưu."
       },
       "ai": {
-        "title": "AI hỗ trợ soạn câu hỏi",
-        "description": "AI chạy cục bộ, gợi ý câu hỏi nhanh mà không phụ thuộc đám mây."
+        "title": "AI chạy trên máy bạn",
+        "description": "Model llama.cpp tóm tắt bài học và sinh câu hỏi ngay trên máy, chỉ giao tiếp qua 127.0.0.1 — hoặc dùng AI đám mây bằng khoá của bạn."
       },
       "play": {
-        "title": "Chơi tương tác trên lớp",
-        "description": "Trình chiếu và tổ chức gameplay trực tiếp, biến tiết học thành trải nghiệm."
+        "title": "Trình chiếu và chơi trên lớp",
+        "description": "Màn chơi toàn màn hình, xuất sang màn hình thứ hai, thi đấu theo đội và cho học sinh trả lời trên điện thoại qua mạng LAN."
       }
     },
     "highlightsMore": "Tìm hiểu thêm",
@@ -62,15 +62,15 @@
     },
     "games": {
       "title": "Thư viện game",
-      "description": "Năm loại game tương tác hiện có trong EduGame Studio, sẵn sàng cho lớp học của bạn."
+      "description": "Năm loại trò chơi có sẵn trong EduGame Studio, dựng trực tiếp từ giáo án của bạn."
     },
     "features": {
       "title": "Tính năng",
-      "description": "Những gì EduGame Studio giúp giáo viên làm được — từ tạo game đến trình chiếu trên lớp."
+      "description": "Những gì EduGame Studio giúp giáo viên làm được — từ đọc giáo án đến trình chiếu trên lớp."
     },
     "download": {
       "title": "Tải xuống",
-      "description": "Tải EduGame Studio cho Windows và bắt đầu tạo bài học tương tác."
+      "description": "Tải EduGame Studio cho Windows 64-bit và bắt đầu tạo bài học tương tác."
     }
   },
   "cta": {
@@ -91,37 +91,70 @@
   },
   "product": {
     "heading": "EduGame Studio là gì?",
-    "description": "Ứng dụng desktop Windows giúp giáo viên tạo game giáo dục từ bài giảng một cách nhanh chóng.",
+    "description": "Ứng dụng desktop Windows giúp giáo viên biến giáo án và học liệu thành trò chơi chơi được ngay trên lớp — kể cả khi không có mạng.",
     "points": [
-      "Tạo game giáo dục từ giáo án và học liệu",
-      "AI hỗ trợ sinh câu hỏi",
-      "AI cục bộ, ưu tiên hoạt động offline",
-      "Ứng dụng desktop Windows",
-      "Trình chiếu trên lớp và chơi tương tác"
+      "Đọc giáo án từ file DOCX, PDF, PPTX, TXT, MD hoặc dán trực tiếp",
+      "Năm loại trò chơi dựng sẵn, màn chơi toàn màn hình, có hình 3D",
+      "AI cục bộ chạy bằng llama.cpp — không cần tài khoản, không gửi bài học đi xa",
+      "Game và lịch sử lưu trong SQLite trên máy, xuất ra file .egame để chép qua USB",
+      "Trình chiếu ra màn hình thứ hai và cho học sinh trả lời trên điện thoại qua LAN"
     ]
   },
   "games": {
     "heading": "Thư viện game",
-    "description": "Năm loại game hiện có trong EduGame Studio. Dễ dàng bổ sung loại game mới.",
+    "description": "Năm loại trò chơi hiện có trong EduGame Studio. Dễ dàng bổ sung loại game mới.",
     "screenshotPlaceholder": "Ảnh chụp màn hình (placeholder)",
     "demo": "Video demo",
     "items": [
-      { "title": "[Game 1]", "description": "[Mô tả placeholder cho loại game thứ nhất.]" },
-      { "title": "[Game 2]", "description": "[Mô tả placeholder cho loại game thứ hai.]" },
-      { "title": "[Game 3]", "description": "[Mô tả placeholder cho loại game thứ ba.]" },
-      { "title": "[Game 4]", "description": "[Mô tả placeholder cho loại game thứ tư.]" },
-      { "title": "[Game 5]", "description": "[Mô tả placeholder cho loại game thứ năm.]" }
+      {
+        "title": "Đấu trường tri thức",
+        "description": "Hỏi đáp nhiều phương án, phản hồi đúng/sai kèm giải thích. Năm cách tính điểm: cơ bản, tốc độ, theo độ khó, thi đấu đội (2–6 đội) và luyện tập; khi toàn màn hình có thêm chế độ Xây nhà."
+      },
+      {
+        "title": "Thử thách tình huống",
+        "description": "Câu chuyện phân nhánh: mỗi lựa chọn có hậu quả và ảnh hưởng các tình huống sau. Chấm theo chất lượng quyết định hoặc đúng/sai, kèm câu hỏi thảo luận."
+      },
+      {
+        "title": "Ghép cặp kiến thức",
+        "description": "Bốn cách chơi: ghép hai cột, lật thẻ ghi nhớ, phân loại kiến thức và “Chòm sao tri thức” — bảng sao 3D, kéo thẻ đáp án vào đúng ngôi sao."
+      },
+      {
+        "title": "Truy tìm kho báu",
+        "description": "Hành trình nhiều chặng: câu đố, nhiệm vụ rồi thử thách tổng kết, có bản đồ tiến trình, gợi ý khi trả lời sai, nhánh lựa chọn và nhiều kết thúc."
+      },
+      {
+        "title": "Đường đua tri thức",
+        "description": "Các đội lần lượt trả lời để tiến trên đường đua: dễ +1, trung bình +2, khó +3, cùng ô tăng tốc, ô may mắn và ô thử thách; tính kèm điểm kiến thức."
+      }
     ]
   },
   "features": {
     "heading": "Tính năng nổi bật",
     "items": [
-      { "title": "Tạo game từ bài giảng", "description": "Biến giáo án và học liệu thành game giáo dục." },
-      { "title": "Soạn câu hỏi thủ công & AI", "description": "Tự soạn câu hỏi hoặc để AI gợi ý nhanh chóng." },
-      { "title": "Chơi tương tác trên lớp", "description": "Tổ chức gameplay tương tác, trình chiếu trực tiếp." },
-      { "title": "Hỗ trợ AI cục bộ", "description": "Chạy AI ngay trên máy, không phụ thuộc đám mây." },
-      { "title": "Thiết kế ưu tiên offline", "description": "Hoạt động ổn định ngay cả khi không có mạng." },
-      { "title": "Quy trình thân thiện với giáo viên", "description": "Thao tác đơn giản, phù hợp giáo viên không chuyên kỹ thuật." }
+      {
+        "title": "Tạo game theo năm bước",
+        "description": "Hướng dẫn từng bước từ giáo án thô đến bản nháp trò chơi; đổi loại game mà không phải sinh lại nội dung."
+      },
+      {
+        "title": "AI chạy ngay trên máy",
+        "description": "llama.cpp với Qwen3.5 bản 2B hoặc 4B tự tải, kiểm tra SHA-256 và chỉ lắng nghe 127.0.0.1 — nội dung bài học không rời khỏi máy."
+      },
+      {
+        "title": "Sân chơi cho cả lớp",
+        "description": "Màn chơi toàn màn hình, trình chiếu ra màn hình thứ hai, thi đấu theo đội và học sinh trả lời trên điện thoại qua mạng LAN."
+      },
+      {
+        "title": "Soạn câu hỏi theo cách của bạn",
+        "description": "Tự viết, nhập CSV/XLSX, dán văn bản (bảy dạng câu, phát hiện câu trùng) hoặc để AI gợi ý — cả đường cục bộ lẫn đám mây."
+      },
+      {
+        "title": "Ưu tiên offline",
+        "description": "Tạo, chơi, chấm điểm và xem lại lịch sử đều chạy khi mất mạng; game lưu trong SQLite và xuất được ra file .egame."
+      },
+      {
+        "title": "Hồ sơ phong cách riêng",
+        "description": "Giọng điệu, độ hài hước, mỹ thuật và ví dụ yêu thích của giáo viên được AI dùng làm mặc định khi sinh câu hỏi."
+      }
     ]
   },
   "download": {
@@ -130,17 +163,17 @@
     "cardTitle": "EduGame Studio cho Windows",
     "button": "Tải cho Windows",
     "versionLabel": "Phiên bản",
-    "version": "[chưa cập nhật]",
+    "version": "0.4.0",
     "fileSizeLabel": "Dung lượng",
-    "fileSize": "[chưa cập nhật]",
+    "fileSize": "87,9 MB (92.241.504 byte)",
     "releaseDateLabel": "Ngày phát hành",
-    "releaseDate": "[chưa cập nhật]",
+    "releaseDate": "04/11/2026",
     "requirementsLabel": "Cấu hình yêu cầu",
-    "requirements": "[Placeholder: Windows 10/11 64-bit, dung lượng trống, RAM...]",
+    "requirements": "Windows 10 hoặc 11, bản 64-bit (x64) — chưa có bản ARM64. Bộ cài ~88 MB. Muốn dùng AI cục bộ: máy tối thiểu 4 GB RAM cho model 2B hoặc 8 GB cho model 4B, cộng vài GB dung lượng trống (Qwen3.5-2B ~1,2 GB + runtime ~19 MB). Bộ cài chưa được ký số nên SmartScreen có thể cảnh báo; hãy đối chiếu SHA-256 trước khi chạy.",
     "releaseNotesLabel": "Ghi chú phát hành",
-    "releaseNotes": "[Placeholder: nội dung changelog của phiên bản.]",
+    "releaseNotes": "0.4.0 (04/11/2026): logo mới cho bộ cài, shortcut và cửa sổ; trang Giáo án chia hai cột với khung chat trả lời kèm trích dẫn nguồn; “Chòm sao tri thức” — bảng sao 3D kéo thả cho Ghép cặp kiến thức; cỡ chữ và màu bị khoá sàn (tối thiểu 11 px, tương phản 4,5:1) ở cả giao diện sáng và tối. Bản đóng gói này chưa được cài thử trên máy sạch và chưa có liên kết tải công khai.",
     "trialLabel": "Bản dùng thử / Demo",
-    "trial": "[Placeholder: thông tin bản dùng thử hoặc demo.]",
+    "trial": "Chưa có bản dùng thử riêng — bộ cài đầy đủ như thông số ở trên.",
     "trialButton": "Xem demo"
   },
   "footer": {

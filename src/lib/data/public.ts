@@ -59,6 +59,17 @@ export async function getPublicData(locale: Locale): Promise<PublicData> {
   const loc = <T,>(key: string, fallback: T): T =>
     (site[key]?.[locale] as T) ?? fallback;
 
+  // Cột release_date là date (ISO); hiển thị theo thứ tự ngày/tháng của ngôn ngữ.
+  const fmtReleaseDate = (iso: string) => {
+    const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
+    if (!y || !m || !d) return iso;
+    return new Intl.DateTimeFormat(locale === "vi" ? "vi-VN" : "en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(new Date(y, m - 1, d));
+  };
+
   const contact = loc("contact", {
     github: GITHUB_FALLBACK,
     email: f.about.email,
@@ -108,7 +119,9 @@ export async function getPublicData(locale: Locale): Promise<PublicData> {
       fileSizeLabel: f.download.fileSizeLabel,
       fileSize: dl?.file_size || f.download.fileSize,
       releaseDateLabel: f.download.releaseDateLabel,
-      releaseDate: dl?.release_date || f.download.releaseDate,
+      releaseDate: dl?.release_date
+        ? fmtReleaseDate(dl.release_date)
+        : f.download.releaseDate,
       requirementsLabel: f.download.requirementsLabel,
       requirements:
         dl?.system_requirements?.[locale] || f.download.requirements,

@@ -21,34 +21,34 @@
   },
   "hero": {
     "badge": "A Windows app for teachers",
-    "title": "Turn lessons into interactive learning experiences",
-    "description": "EduGame Studio helps teachers create educational games from lesson plans and teaching materials, with AI-assisted question generation and an offline-first workflow.",
+    "title": "Turn lesson plans into interactive games your class can play",
+    "description": "EduGame Studio reads your lesson plans and teaching materials, drafts questions with AI running on your own machine, and builds five kinds of games that keep working when the classroom has no internet.",
     "ctaPrimary": "Download EduGame Studio",
     "ctaSecondary": "Explore the app",
     "screenshotAlt": "EduGame Studio application screenshot (placeholder)",
-    "chips": ["Windows desktop", "Works offline", "Local AI"]
+    "chips": ["Windows 10/11 64-bit", "On-device AI", "Plays offline"]
   },
   "home": {
     "stats": [
-      { "value": "5", "label": "Interactive game types" },
-      { "value": "AI", "label": "Question assistance" },
-      { "value": "Offline", "label": "No internet needed" },
-      { "value": "Windows", "label": "Desktop app" }
+      { "value": "5", "label": "Built-in game types" },
+      { "value": "AI", "label": "Local, powered by llama.cpp" },
+      { "value": "Offline", "label": "No internet required" },
+      { "value": "Windows", "label": "64-bit desktop app" }
     ],
     "highlightsHeading": "From lesson plan to a lively classroom",
-    "highlightsSubtitle": "EduGame Studio bundles game creation, question writing and classroom presentation into one teacher-friendly workflow.",
+    "highlightsSubtitle": "One app covers reading your materials, drafting questions with AI, building the game and presenting it in front of the class.",
     "highlights": {
       "create": {
         "title": "Create games from lessons",
-        "description": "Turn lesson plans and teaching materials into educational games in a few steps."
+        "description": "Read DOCX, PDF, PPTX, TXT or MD files and follow a five-step flow: structure, analysis, game suggestions, configuration and save."
       },
       "ai": {
-        "title": "AI-assisted questions",
-        "description": "Local AI suggests questions quickly without relying on the cloud."
+        "title": "AI runs on your machine",
+        "description": "A llama.cpp model summarises the lesson and generates questions locally, talking only to 127.0.0.1 — or use cloud AI with your own key."
       },
       "play": {
-        "title": "Interactive classroom play",
-        "description": "Present and run gameplay live, turning each lesson into an experience."
+        "title": "Present and play in class",
+        "description": "Fullscreen gameplay, output to a second screen, team battles, and students answering on their phones over the LAN."
       }
     },
     "highlightsMore": "Learn more",
@@ -62,15 +62,15 @@
     },
     "games": {
       "title": "Game showcase",
-      "description": "The five interactive game types available in EduGame Studio, ready for your classroom."
+      "description": "The five game types built into EduGame Studio, generated straight from your lesson plans."
     },
     "features": {
       "title": "Features",
-      "description": "What EduGame Studio helps teachers do — from creating games to presenting in class."
+      "description": "What EduGame Studio helps teachers do — from reading a lesson plan to presenting in class."
     },
     "download": {
       "title": "Download",
-      "description": "Download EduGame Studio for Windows and start building interactive lessons."
+      "description": "Download EduGame Studio for 64-bit Windows and start building interactive lessons."
     }
   },
   "cta": {
@@ -91,13 +91,13 @@
   },
   "product": {
     "heading": "What is EduGame Studio?",
-    "description": "A Windows desktop app that helps teachers quickly create educational games from their lessons.",
+    "description": "A Windows desktop app that turns lesson plans and teaching materials into games your class can play — even without internet.",
     "points": [
-      "Create educational games from lesson plans and materials",
-      "AI-assisted question generation",
-      "Local AI, offline-first workflow",
-      "Windows desktop application",
-      "Classroom presentation and interactive gameplay"
+      "Reads lesson plans from DOCX, PDF, PPTX, TXT or MD files, or pasted text",
+      "Five ready-made game types with fullscreen play and 3D visuals",
+      "Local AI on llama.cpp — no account needed, your lesson never leaves the machine",
+      "Games and history stored in SQLite, exported as .egame files you can move by USB",
+      "Presents to a second screen and lets students answer on their phones over LAN"
     ]
   },
   "games": {
@@ -106,22 +106,55 @@
     "screenshotPlaceholder": "Screenshot (placeholder)",
     "demo": "Demo video",
     "items": [
-      { "title": "[Game 1]", "description": "[Placeholder description for the first game type.]" },
-      { "title": "[Game 2]", "description": "[Placeholder description for the second game type.]" },
-      { "title": "[Game 3]", "description": "[Placeholder description for the third game type.]" },
-      { "title": "[Game 4]", "description": "[Placeholder description for the fourth game type.]" },
-      { "title": "[Game 5]", "description": "[Placeholder description for the fifth game type.]" }
+      {
+        "title": "Knowledge Arena",
+        "description": "Multiple-choice questions with right/wrong feedback and explanations. Five scoring modes: basic, speed, by difficulty, team battle (2–6 teams) and practice; fullscreen play adds the House Building mode."
+      },
+      {
+        "title": "Scenario Challenge",
+        "description": "A branching story where each choice has consequences and affects later situations. Scored on decision quality or simple right/wrong, with discussion questions."
+      },
+      {
+        "title": "Knowledge Matching",
+        "description": "Four ways to play: two-column matching, memory flip cards, categorising, and “Knowledge Constellation” — a 3D star board where students drag answer cards onto the right star."
+      },
+      {
+        "title": "Treasure Hunt",
+        "description": "A multi-stage journey: puzzles, missions and a final challenge, with a progress map, hints after wrong answers, branch choices and several endings."
+      },
+      {
+        "title": "Learning Race",
+        "description": "Teams take turns answering to advance on a race track: easy +1, medium +2, hard +3, plus boost, lucky and challenge cells, alongside knowledge points."
+      }
     ]
   },
   "features": {
     "heading": "Key features",
     "items": [
-      { "title": "Lesson-based game creation", "description": "Turn lesson plans and materials into educational games." },
-      { "title": "Manual & AI question creation", "description": "Write questions yourself or let AI suggest them quickly." },
-      { "title": "Interactive classroom gameplay", "description": "Run interactive gameplay and present live in class." },
-      { "title": "Local AI support", "description": "Run AI on your own machine, no cloud dependency." },
-      { "title": "Offline-first design", "description": "Works reliably even without an internet connection." },
-      { "title": "Teacher-friendly workflow", "description": "Simple steps suited to non-technical teachers." }
+      {
+        "title": "Five-step game creation",
+        "description": "Guided steps from a raw lesson plan to a drafted game; switch game type without regenerating the content."
+      },
+      {
+        "title": "AI on your own machine",
+        "description": "llama.cpp with Qwen3.5 2B or 4B, downloaded automatically, verified by SHA-256 and bound to 127.0.0.1 — lesson text never leaves the computer."
+      },
+      {
+        "title": "Built for the whole class",
+        "description": "Fullscreen gameplay, output to a second screen, team battles, and students answering on their phones over the LAN."
+      },
+      {
+        "title": "Author questions your way",
+        "description": "Write them yourself, import CSV/XLSX, paste text (seven question types, duplicate detection) or let AI draft them — locally or in the cloud."
+      },
+      {
+        "title": "Offline-first",
+        "description": "Creating, playing, scoring and reviewing history all work without a connection; games live in SQLite and export to .egame."
+      },
+      {
+        "title": "Your personal teaching style",
+        "description": "Tone, humour, art preferences and favourite examples are stored per teacher and used as AI defaults when generating questions."
+      }
     ]
   },
   "download": {
@@ -130,17 +163,17 @@
     "cardTitle": "EduGame Studio for Windows",
     "button": "Download for Windows",
     "versionLabel": "Version",
-    "version": "[not set]",
+    "version": "0.4.0",
     "fileSizeLabel": "File size",
-    "fileSize": "[not set]",
+    "fileSize": "87.9 MB (92,241,504 bytes)",
     "releaseDateLabel": "Release date",
-    "releaseDate": "[not set]",
+    "releaseDate": "11/04/2026",
     "requirementsLabel": "System requirements",
-    "requirements": "[Placeholder: Windows 10/11 64-bit, disk space, RAM...]",
+    "requirements": "Windows 10 or 11, 64-bit (x64) — no ARM64 build yet. The installer is about 88 MB. For local AI: 4 GB RAM minimum for the 2B model or 8 GB for the 4B model, plus a few GB of free disk (Qwen3.5-2B ~1.2 GB + runtime ~19 MB). The installer is not code-signed, so SmartScreen may warn; verify the SHA-256 before running it.",
     "releaseNotesLabel": "Release notes",
-    "releaseNotes": "[Placeholder: changelog for this version.]",
+    "releaseNotes": "0.4.0 (Nov 4, 2026): new logo across installer, shortcut and window; the Lessons page split into two columns with a chat panel that answers with source citations; “Knowledge Constellation” — a draggable 3D star board for Knowledge Matching; type size and colour contrast floored at 11 px and 4.5:1 in both light and dark themes. This packaged build has not been installed on a clean machine yet and has no public download link.",
     "trialLabel": "Trial / Demo",
-    "trial": "[Placeholder: trial or demo information.]",
+    "trial": "There is no separate trial build — the full installer is described above.",
     "trialButton": "View demo"
   },
   "footer": {
