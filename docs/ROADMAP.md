@@ -108,6 +108,8 @@ Nguồn: thư mục tài liệu dự án EduGame Studio (`STATUS.md`, `ROADMAP.m
 - ✅ `release_date` format theo locale (`vi-VN` → `04/11/2026`, `en-US` → `11/04/2026`) trong `src/lib/data/public.ts`
 - ✅ `lint` + `typecheck` + `build` pass (24 trang); render thử `/vi` + `/en` (fallback messages, DB tắt): hero/stats/highlights/5 game/6 tính năng/download 200, đúng chữ mới
 - Không bịa: **link tải vẫn trống** (`windows_url` = `''` → nút tải là `#`) cho tới khi có bản phát hành công khai; tên/bio/email tác giả vẫn placeholder vì tài liệu sản phẩm không có thông tin cá nhân
+- ✅ Commit + push code Phase 8 — `6061c7b` trên `origin/main`, Vercel tự build → Ready (`https://edugame-website-one.vercel.app`, `/vi` + `/en/download` + `/vi/docs` đều 200)
+- ✅ Đối chiếu DB sau deploy: `games` = game-1 đã có tên thật + screenshot (ảnh **không** bị migration đụng tới), game-2..5 vẫn `[Game n]`, `downloads` rỗng, `guides` = 0 → xác nhận production chỉ đổi sau khi áp `0004`
 
 ## Việc cần chủ dự án cung cấp / quyết định
 
