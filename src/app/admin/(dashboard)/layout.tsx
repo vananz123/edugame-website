@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import {
-  GraduationCap,
   LayoutDashboard,
   FileText,
   Gamepad2,
@@ -13,6 +12,7 @@ import {
 } from "lucide-react";
 import { requireAdmin } from "@/lib/auth";
 import { logoutAction } from "@/app/admin/login/actions";
+import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -36,7 +36,7 @@ export default async function AdminLayout({
     <div className="flex min-h-screen flex-1">
       <aside className="hidden w-60 flex-col border-r border-border bg-muted/20 md:flex">
         <div className="flex h-16 items-center gap-2 border-b border-border px-4 font-semibold">
-          <GraduationCap className="size-5 text-primary" />
+          <BrandMark className="size-7" />
           EduGame Admin
         </div>
         <nav className="flex-1 space-y-1 p-3">

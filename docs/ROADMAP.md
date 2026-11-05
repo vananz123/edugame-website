@@ -111,6 +111,15 @@ Nguồn: thư mục tài liệu dự án EduGame Studio (`STATUS.md`, `ROADMAP.m
 - ✅ Commit + push code Phase 8 — `6061c7b` trên `origin/main`, Vercel tự build → Ready (`https://edugame-website-one.vercel.app`, `/vi` + `/en/download` + `/vi/docs` đều 200)
 - ✅ Đối chiếu production sau khi áp `0004`: `/vi` hiện tên game thật; `/vi/download` (200) hiện `0.4.1` · `88,2 MB (92.496.890 byte)` · `05/11/2026` · SHA-256 và nút tải trỏ thẳng asset release; `/vi/docs` + `/en/docs` hiện 2 bài guide. `games.screenshot_path` của game-1 vẫn nguyên — migration không đụng ảnh.
 
+## Phase 9 — Logo chính thức cho website
+
+- ✅ Nguồn: file logo do chủ dự án cung cấp (mũ cử chương + sách mở + vòng chòm sao, 2 màu `#1800ad` / `#38b6ff`, 2000×2000)
+- ✅ Xử lý asset: ảnh gốc là **nền trắng opaque**, không trong suốt → flood-fill chỉ từ biên để xoá nền trắng mà vẫn giữ trang sách trắng; cắt theo bounding box nội dung, lưu `public/brand/edugame-logo.png` (1024px, PNG palette ~64 KB)
+- ✅ Icon: `src/app/icon.png` (512px) + `src/app/apple-icon.png` (180px) theo file convention của Next; **xoá `src/app/favicon.ico` mặc định** (logo Vercel) — HTML public nay nhả `<link rel="icon" href="/icon.png" sizes="512x512">` + `apple-touch-icon`
+- ✅ `src/components/brand-mark.tsx` (`next/image`, intrinsic 72px, `priority`) thay icon `GraduationCap` ở navbar, footer, sidebar admin và trang `/admin/login`
+- ✅ `lint` + `typecheck` + `build` pass; chạy production server local: 2 ảnh logo render 36×36 (`natural=96`, qua `/_next/image`), `/admin/login` 200, console sạch
+- Ghi chú: logo màu xanh là chỗ duy nhất còn màu ngoài giao diện trắng–đen — xem [ARCHITECTURE.md](./ARCHITECTURE.md) §11
+
 ## Việc cần chủ dự án cung cấp / quyết định
 
 | Việc | Cần cho | Trạng thái |
@@ -127,4 +136,6 @@ Nguồn: thư mục tài liệu dự án EduGame Studio (`STATUS.md`, `ROADMAP.m
 | Duyệt commit + push code Phase 7 | Phase 7 | ✅ `0f504d3`, đã push `origin/main` |
 | Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | ✅ 2 bài Markdown vi/en đã publish trong DB; ⬜ chưa có ảnh/video minh họa |
 | **Duyệt + áp migration `0004_real_content.sql`** | Phase 8 | ✅ chủ dự án đã duyệt + áp 05/11/2026 (`site_content`/`games`/`downloads`/`guides` đã có nội dung thật) |
-| Duyệt commit + push code Phase 8 | Phase 8 | ✅ `6061c7b` + `8191e7c` đã push; ⬜ bản 0.4.1 (link tải + docs) chưa commit |
+| Duyệt commit + push code Phase 8 | Phase 8 | ✅ `6061c7b` + `8191e7c` + `6712495` (bản 0.4.1: link tải + docs), đã push `origin/main` |
+| File logo chính thức | Phase 9 | ✅ chủ dự án đã cung cấp (PNG 2000×2000) |
+| Duyệt commit + push code Phase 9 | Phase 9 | ⬜ chờ chủ dự án duyệt |

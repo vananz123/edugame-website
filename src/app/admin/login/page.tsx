@@ -1,8 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import { GraduationCap } from "lucide-react";
 import { loginAction, type LoginState } from "./actions";
+import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,9 +24,7 @@ export default function AdminLoginPage() {
     <main className="flex flex-1 items-center justify-center px-4 py-16">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <GraduationCap className="size-5" />
-          </div>
+          <BrandMark className="mb-2 size-10" />
           <CardTitle>EduGame Admin</CardTitle>
           <CardDescription>Sign in to manage website content.</CardDescription>
         </CardHeader>

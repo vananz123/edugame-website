@@ -7,7 +7,7 @@
 | Lớp | Công nghệ | Ghi chú |
 |---|---|---|
 | Framework | Next.js (App Router) + TypeScript | Server Components mặc định |
-| UI | Tailwind CSS + shadcn/ui + lucide-react | Light theme, trắng–đen tối giản (xám trung tính) |
+| UI | Tailwind CSS + shadcn/ui + lucide-react | Light theme, trắng–đen tối giản (xám trung tính); logo màu ở navbar/footer/admin |
 | i18n | next-intl | `/vi` mặc định, `/en` |
 | Database | Supabase PostgreSQL | Free tier |
 | Auth | Supabase Auth | Chỉ admin, email + password |
@@ -25,9 +25,14 @@ edugame-website/
 │   └── en.json               # UI strings tiếng Anh
 ├── supabase/
 │   └── migrations/           # SQL migration có version (nguồn sự thật schema)
+├── public/
+│   └── brand/
+│       └── edugame-logo.png  # Logo chính thức (PNG trong suốt 1024px, đã xoá nền trắng)
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx        # Root <html lang> duy nhất (getLocale)
+│   │   ├── icon.png          # Favicon 512px (Next file convention, thay favicon.ico mặc định)
+│   │   ├── apple-icon.png    # Apple touch icon 180px
 │   │   ├── [locale]/         # Public: /vi, /en
 │   │   │   ├── layout.tsx    # NextIntlClientProvider (không <html>) + LocaleLangSync
 │   │   │   ├── page.tsx      # Trang chủ: hero + stats + highlights + preview + CTA
@@ -48,6 +53,7 @@ edugame-website/
 │   │   ├── sitemap.ts
 │   │   └── robots.ts
 │   ├── components/
+│   │   ├── brand-mark.tsx    # Logo <Image> dùng chung: navbar, footer, admin layout + login
 │   │   ├── public/           # Navbar, Hero, StatsStrip, Highlights, PageHeader,
 │   │   │                     # CtaSection, Reveal, Markdown, ...
 │   │   └── ui/               # shadcn/ui (Base UI)
@@ -227,7 +233,7 @@ Thay landing single-page bằng site nhiều trang (2026-10-31), giữ nguyên d
 - Utility trong `globals.css`: `.bg-mesh` (radial gradient xám rất nhạt), `.bg-grid` (lưới mờ), `.reveal` (fade-up khi cuộn). Không còn blob/float animation.
 - `Reveal` (client, IntersectionObserver) tự hiện ngay nếu phần tử nằm trong viewport đầu; tôn trọng `prefers-reduced-motion`; có `<noscript>` fallback để nội dung vẫn hiện khi tắt JS.
 - Card/pill dùng `bg-muted`, `border-border`, icon tile `bg-foreground text-background`; hover lift nhẹ + `shadow-md` trung tính. Ảnh game thiếu asset dùng placeholder `bg-muted` (không bịa screenshot).
-- CTA cuối trang là dải đen `bg-foreground text-background` với nút trắng; navbar/footer dùng logo tile đen.
+- CTA cuối trang là dải đen `bg-foreground text-background` với nút trắng. Navbar/footer/admin dùng logo màu (`BrandMark`, nền trong suốt) — đây là chỗ duy nhất có màu thương hiệu; toàn bộ giao diện còn lại vẫn trắng–đen.
 - `LocaleLangSync` đồng bộ `<html lang>` khi chuyển ngôn ngữ phía client.
 
 **Lưu ý Tailwind v4:** class tự viết phải nằm trong `@layer components` (đặt trong `@layer utilities` bị loại khỏi bundle).

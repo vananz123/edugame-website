@@ -49,15 +49,18 @@ Website thương hiệu cá nhân + giới thiệu **EduGame Studio** (app Windo
 - **Phase 8 (nội dung thật)**: chữ placeholder **về sản phẩm** trên site đã được thay bằng sự kiện lọc từ tài liệu dự án EduGame Studio (5 thể loại game đúng tên trong app, wizard 5 bước, AI cục bộ llama.cpp + Qwen3.5, trình chiếu màn 2, chơi LAN, SQLite + `.egame`, bộ cài 0.4.1 · 88,2 MB · 05/11/2026, yêu cầu RAM 4/8 GB, chưa ký số). Riêng tên/bio/email tác giả và nhãn "screenshot (placeholder)" **giữ nguyên** vì tài liệu không chứa thông tin đó — không bịa. Nội dung nằm ở `messages/vi.json` + `messages/en.json` (fallback) **và** `supabase/migrations/0004_real_content.sql` (DB = nguồn của production) kèm 2 bài guide Markdown vi/en. `release_date` format theo locale. **Migration 0004 đã chủ dự án duyệt + áp ngày 05/11/2026** → production (`/vi`, `/vi/download`, `/vi/docs`, `/en/docs`) đã hiển thị nội dung thật.
 - **Link tải thật (Phase 8 bổ sung)**: repo `https://github.com/vananz123/edu-game-ai` **đã có GitHub Releases** `v0.4.0` + `v0.4.1` kèm bộ cài, không cần upload thêm. Site trỏ thẳng asset đã kiểm chứng: `https://github.com/vananz123/edu-game-ai/releases/download/v0.4.1/EduGame-Studio-Setup-0.4.1.exe` (92.496.890 byte, SHA-256 `636bc0042611516987c3fbfc48c61f1d65df0935ab5a17f31fb39fb80fe81741` — đã tải về và tính lại). Ghi rõ trên trang: chưa ký số → SmartScreen cảnh báo, chưa cài thử trên máy sạch ngắt mạng.
 
+- **Phase 9 (logo)**: chủ dự án cung cấp file logo (mũ cử chương + sách mở + vòng chòm sao, `#1800ad`/`#38b6ff`). Ảnh gốc có nền trắng opaque → flood-fill từ biên để tách nền trong suốt (giữ nguyên trang sách trắng), cắt theo bounding box → `public/brand/edugame-logo.png` (1024px). `src/components/brand-mark.tsx` thay icon `GraduationCap` ở navbar, footer, sidebar admin, `/admin/login`. Favicon: `src/app/icon.png` (512) + `apple-icon.png` (180), **đã xoá `src/app/favicon.ico` mặc định của Vercel**. Build/lint/typecheck pass, 2 ảnh logo render 36×36 qua `/_next/image`, console sạch.
+
 **Chưa làm / blocker:**
 - Chưa xác minh đăng nhập `/admin/login` trên production (cần mật khẩu admin — chỉ chủ dự án làm được).
-- Chưa commit các sửa đổi 0.4.1 (`messages/vi.json`, `messages/en.json`, `0004_real_content.sql`, `docs/`) — chờ chủ dự án duyệt (AGENTS.md #1). SQL 0004 bản 0.4.1 **đã được áp vào DB** nên production đã đúng, chỉ repo chưa được commit.
-- ✅ Link tải đã có và đã dán vào DB: `downloads.windows_url` = asset release `v0.4.1` trên `github.com/vananz123/edu-game-ai`. Còn lại: theo dõi release mới và cập nhật version/URL/SHA-256 qua `/admin/downloads` khi đóng gói bản khác.
+- Bản 0.4.1 (link tải + docs) đã commit + push — `6712495` trên `origin/main`, Vercel Ready.
+- ⬜ Thay đổi Phase 9 (logo + favicon) **chưa commit** — chờ chủ dự án duyệt (AGENTS.md #1).
+- Link tải: `downloads.windows_url` = asset release `v0.4.1` trên `github.com/vananz123/edu-game-ai`. Khi đóng gói bản khác chỉ cần cập nhật version/URL/dung lượng/SHA-256 qua `/admin/downloads`, không đụng code.
 - Chưa có thông tin cá nhân thật (tên/bio/email), screenshot 5 game, ảnh/video cho guide — tài liệu sản phẩm không chứa các mục này, không được bịa.
 
 ## 5. Việc cần làm tiếp (theo thứ tự)
 
-1. Duyệt commit + push các thay đổi 0.4.1 (`messages/*.json`, `0004_real_content.sql`, `docs/`) → Vercel tự deploy. Nội dung production đã đúng từ trước đó vì DB đã áp `0004`; bước này chỉ làm repo khớp với DB.
+1. Duyệt commit + push thay đổi Phase 9 (logo `public/brand/` + `brand-mark.tsx` + `icon.png`/`apple-icon.png`, xoá `favicon.ico`, docs) → Vercel tự deploy.
 2. Đăng nhập `https://edugame-website-one.vercel.app/admin/login` để xác nhận auth hoạt động trên production.
 3. Bổ sung qua `/admin`: tên/bio/email thật, screenshot từng game, ảnh/video trong `/admin/guides`.
 4. Khi đóng gói bản mới: upload release lên `github.com/vananz123/edu-game-ai` rồi cập nhật `version` / `windows_url` / `file_size` / `release_date` / SHA-256 trong `/admin/downloads` (không cần đụng code).

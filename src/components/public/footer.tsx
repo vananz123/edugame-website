@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
-import { GraduationCap } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { BrandMark } from "@/components/brand-mark";
 
 export function Footer({
   github,
@@ -18,9 +18,7 @@ export function Footer({
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 font-semibold">
-              <span className="flex size-8 items-center justify-center rounded-xl bg-foreground text-background">
-                <GraduationCap className="size-4.5" />
-              </span>
+              <BrandMark />
               <span>EduGame Studio</span>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">{t("tagline")}</p>
