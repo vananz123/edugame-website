@@ -5,7 +5,7 @@
 ## 1. Điều kiện trước khi deploy
 
 - [x] Code Phase 2–6 hoàn thành, `lint` + `tsc` + `build` pass.
-- [x] Supabase đã có schema + RLS + Storage policy (migration `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** trong project `kosieqrqabcrvmvzbemt`). Riêng `0004_real_content.sql` (nội dung thật, không đổi schema) **chờ chủ dự án duyệt + áp**.
+- [x] Supabase đã có schema + RLS + Storage policy (migration `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** trong project `kosieqrqabcrvmvzbemt`). `0004_real_content.sql` (nội dung thật, không đổi schema) **đã duyệt + đã áp** 05/11/2026 — production đang phục vụ chữ thật, 2 guide và link tải v0.4.1.
 - [x] Đã tạo tài khoản admin trong Supabase Auth + insert `admin_users` (✅ `dovanan.bth2017@gmail.com`).
 - [x] Có tài khoản Vercel (`vananz123`, scope `vananz123s-projects`) và domain mặc định `edugame-website-one.vercel.app`. Tên miền riêng: chưa dùng.
 
@@ -50,7 +50,7 @@
 - [x] `/vi` và `/en` render đúng (200); `/vi/games`, `/vi/about`, `/en/features`, `/vi/docs` = 200. Language switcher đã test local (client-side) và route được giữ nguyên khi đổi ngôn ngữ.
 - [x] `/admin` trên production → 307 `/admin/login`; trang login render 200. ⬜ Đăng nhập thật trên production cần chủ dự án nhập mật khẩu.
 - [ ] Sửa content → publish → trang public cập nhật (revalidate) không cần deploy lại. (đã xác minh local, chưa chạy lại trên production)
-- [ ] Upload ảnh hiển thị; link tải Windows đúng — chờ nội dung thật.
+- [x] Link tải Windows trên `/vi/download` trỏ asset release đã kiểm chứng (`EduGame-Studio-Setup-0.4.1.exe` từ GitHub Releases `vananz123/edu-game-ai`). ⬜ Upload ảnh screenshot 5 game + ảnh/video guide — vẫn chờ chủ dự án.
 - [x] `/vi/docs`, `/en/docs` render; hành vi tạo/xóa guide đã test ở Phase 6.
 - [x] Không lộ secret: `grep` source không có service-role key; client bundle production không chứa chuỗi JWT/`service_role`.
 

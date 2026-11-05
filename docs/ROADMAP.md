@@ -102,22 +102,22 @@ Trạng thái ký hiệu: ✅ xong · 🔄 đang làm · ⬜ chưa bắt đầu 
 
 Nguồn: thư mục tài liệu dự án EduGame Studio (`STATUS.md`, `ROADMAP.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `BENCHMARKS.md`, `PROJECT_MAP.md`, `implementation-plan.md`, cập nhật 2026-11-04). Chỉ đăng sự kiện có dòng chứng minh trong docs; mọi chỗ chưa có nguồn giữ nguyên placeholder.
 
-- ✅ `messages/vi.json` + `messages/en.json`: hero, `home.stats`/`home.highlights`, product, 5 thể loại game (tên thật trong app), 6 tính năng, khối download (0.4.0 · 87,9 MB · 04/11/2026 · yêu cầu máy · release notes) — thay toàn bộ chữ placeholder
-- ✅ `supabase/migrations/0004_real_content.sql`: cùng nội dung trên cho DB (nguồn thật của trang production) + 2 bài guide `tao-game-dau-tien`, `ai-cuc-bo-tren-may` — **UPDATE-only, không xoá row, không đổi schema, không đụng `screenshot_path`/`video_url`/`windows_url`/`about`/`contact`**
-- ⬜ Chủ dự án duyệt rồi dán `0004_real_content.sql` vào Supabase SQL Editor (AGENTS.md #4) — production chỉ đổi sau bước này
-- ✅ `release_date` format theo locale (`vi-VN` → `04/11/2026`, `en-US` → `11/04/2026`) trong `src/lib/data/public.ts`
+- ✅ `messages/vi.json` + `messages/en.json`: hero, `home.stats`/`home.highlights`, product, 5 thể loại game (tên thật trong app), 6 tính năng, khối download (0.4.1 · 88,2 MB · 05/11/2026 · yêu cầu máy · release notes · SHA-256) — thay toàn bộ chữ placeholder
+- ✅ `supabase/migrations/0004_real_content.sql`: cùng nội dung trên cho DB (nguồn thật của trang production) + 2 bài guide `tao-game-dau-tien`, `ai-cuc-bo-tren-may` — **UPDATE-only, không xoá row, không đổi schema, không đụng `screenshot_path`/`video_url`/`about`/`contact`**
+- ✅ Chủ dự án duyệt + dán vào Supabase SQL Editor → đã áp (đối chiếu DB: `site_content` hero/product/features + `games` 5 dòng + `downloads` 0.4.1 + `guides` 2 bài published, cùng timestamp 05/11/2026 11:40 giờ máy)
+- ✅ `release_date` format theo locale (`vi-VN` → `05/11/2026`, `en-US` → `11/05/2026`) trong `src/lib/data/public.ts`
 - ✅ `lint` + `typecheck` + `build` pass (24 trang); render thử `/vi` + `/en` (fallback messages, DB tắt): hero/stats/highlights/5 game/6 tính năng/download 200, đúng chữ mới
-- Không bịa: **link tải vẫn trống** (`windows_url` = `''` → nút tải là `#`) cho tới khi có bản phát hành công khai; tên/bio/email tác giả vẫn placeholder vì tài liệu sản phẩm không có thông tin cá nhân
+- Không bịa: tên/bio/email tác giả vẫn placeholder vì tài liệu sản phẩm không có thông tin cá nhân; screenshot từng game vẫn trống. **Link tải không phải bịa** — lấy từ GitHub Releases `v0.4.1` có thật của repo `vananz123/edu-game-ai`, đã tải asset về kiểm dung lượng + SHA-256
 - ✅ Commit + push code Phase 8 — `6061c7b` trên `origin/main`, Vercel tự build → Ready (`https://edugame-website-one.vercel.app`, `/vi` + `/en/download` + `/vi/docs` đều 200)
-- ✅ Đối chiếu DB sau deploy: `games` = game-1 đã có tên thật + screenshot (ảnh **không** bị migration đụng tới), game-2..5 vẫn `[Game n]`, `downloads` rỗng, `guides` = 0 → xác nhận production chỉ đổi sau khi áp `0004`
+- ✅ Đối chiếu production sau khi áp `0004`: `/vi` hiện tên game thật; `/vi/download` (200) hiện `0.4.1` · `88,2 MB (92.496.890 byte)` · `05/11/2026` · SHA-256 và nút tải trỏ thẳng asset release; `/vi/docs` + `/en/docs` hiện 2 bài guide. `games.screenshot_path` của game-1 vẫn nguyên — migration không đụng ảnh.
 
 ## Việc cần chủ dự án cung cấp / quyết định
 
 | Việc | Cần cho | Trạng thái |
 |---|---|---|
 | Thông tin cá nhân thật (tên, bio, link GitHub, contact) | Phase 2 | ⬜ đang dùng placeholder — tài liệu sản phẩm không có thông tin tác giả |
-| Tên + mô tả + screenshot 5 game types | Phase 2/3 | 🟡 tên + mô tả thật đã lọc từ docs (chờ áp `0004`); screenshot vẫn trống |
-| Link tải Windows thật + version + release notes | Phase 2/3 | 🟡 version 0.4.0 + dung lượng + ngày + release notes lấy từ docs; ⬜ **link tải** (brief cấm bịa) |
+| Tên + mô tả + screenshot 5 game types | Phase 2/3 | ✅ tên + mô tả thật đã lọc từ docs, **đã áp vào DB**; ⬜ screenshot từng game vẫn trống (chờ ảnh thật) |
+| Link tải Windows thật + version + release notes | Phase 2/3 | ✅ version 0.4.1 + dung lượng + ngày + release notes + **link tải** là asset GitHub Release `vananz123/edu-game-ai` (SHA-256 đã kiểm chứng bằng cách tải về) |
 | Tài khoản admin Supabase Auth (email) + insert `admin_users` | Phase 4 | ✅ `dovanan.bth2017@gmail.com` |
 | Tài khoản Vercel + tên miền mong muốn | Phase 5 | ✅ đã deploy `https://edugame-website-one.vercel.app`; domain riêng (tùy chọn) chưa có |
 | Duyệt migration SQL trước khi áp dụng | Phase 3 | ✅ đã duyệt + đã áp dụng |
@@ -125,6 +125,6 @@ Nguồn: thư mục tài liệu dự án EduGame Studio (`STATUS.md`, `ROADMAP.m
 | Duyệt + áp migration `0003_guides.sql` | Phase 6 | ✅ đã duyệt + đã áp dụng |
 | Duyệt commit + push code Phase 6 | Phase 6 | ✅ `7555931`, đã push `origin/main` |
 | Duyệt commit + push code Phase 7 | Phase 7 | ✅ `0f504d3`, đã push `origin/main` |
-| Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | 🟡 2 bài Markdown vi/en soạn từ docs (chờ áp `0004`); chưa có ảnh/video |
-| **Duyệt + áp migration `0004_real_content.sql`** | Phase 8 | ⬜ chờ chủ dự án review SQL rồi dán vào Supabase SQL Editor |
-| Duyệt commit + push code Phase 8 | Phase 8 | ⬜ |
+| Nội dung hướng dẫn thật (bài viết, ảnh, video) | Phase 6 | ✅ 2 bài Markdown vi/en đã publish trong DB; ⬜ chưa có ảnh/video minh họa |
+| **Duyệt + áp migration `0004_real_content.sql`** | Phase 8 | ✅ chủ dự án đã duyệt + áp 05/11/2026 (`site_content`/`games`/`downloads`/`guides` đã có nội dung thật) |
+| Duyệt commit + push code Phase 8 | Phase 8 | ✅ `6061c7b` + `8191e7c` đã push; ⬜ bản 0.4.1 (link tải + docs) chưa commit |

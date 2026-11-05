@@ -24,15 +24,15 @@ Cập nhật: 2026-11-04
 | Auth service | ✅ hoạt động (`/auth/v1/health` → 200) |
 | Storage | ✅ truy cập được (`/storage/v1/bucket` → 200) |
 | Publishable key | ✅ hợp lệ (REST không trả 401) |
-| Schema `public` | ✅ `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** (6 bảng gồm `guides`, RLS, bucket `media`); ⬜ `0004_real_content.sql` (nội dung thật + 2 guide) **chưa áp dụng — chờ chủ dự án duyệt** |
+| Schema `public` | ✅ `0001_init.sql` + `0002_seed.sql` + `0003_guides.sql` **đã áp dụng** (6 bảng gồm `guides`, RLS, bucket `media`); ✅ `0004_real_content.sql` (nội dung thật + 2 guide + link tải 0.4.1) **đã chủ dự án duyệt + áp** ngày 05/11/2026 |
 | Admin | ✅ Auth user + allowlist `admin_users` đã tạo (`dovanan.bth2017@gmail.com`) |
 | MCP quản trị DB | ❌ không có; chỉ có `supabase:search_docs` → thao tác SQL qua Dashboard |
 
-> Trang public đọc DB trước, fallback `messages` khi DB trống. Hiện **DB vẫn là placeholder của `0002_seed.sql`** (5 game `[Game 1..5]`, downloads rỗng) nên production vẫn hiển thị chữ placeholder cho tới khi `0004_real_content.sql` được duyệt + áp dụng; `messages/*.json` đã có nội dung thật nên local chạy kiểu fallback là đúng. Trang `/docs` hiển thị empty state khi chưa có guide published; admin hiển thị bảng rỗng. Data access xử lý lỗi missing-table an toàn (không crash). Admin CRUD cần cả migration + email trong `admin_users` (§3).
+> Trang public đọc DB trước, fallback `messages` khi DB trống. Từ 05/11/2026 **DB đã là nội dung thật** (`games` 5 thể loại, `downloads` v0.4.1 + link release GitHub, `guides` 2 bài published) sau khi `0004_real_content.sql` được duyệt + áp; `messages/*.json` giữ cùng bộ chữ làm fallback. Trang `/docs` hiển thị empty state khi chưa có guide published; admin hiển thị bảng rỗng. Data access xử lý lỗi missing-table an toàn (không crash). Admin CRUD cần cả migration + email trong `admin_users` (§3).
 
 ## 3. Chạy migration thủ công (khi chưa có MCP DB)
 
-> Project hiện tại **đã áp dụng** `0001` + `0002` + `0003`; `0004_real_content.sql` **chưa chạy** (chờ duyệt). Phần dưới dùng khi dựng project Supabase mới (staging/prod) hoặc reset.
+> Project hiện tại **đã áp dụng** `0001` + `0002` + `0003` + `0004_real_content.sql` (05/11/2026). Phần dưới dùng khi dựng project Supabase mới (staging/prod) hoặc reset.
 
 Cách A — Supabase Dashboard:
 1. Mở project → SQL Editor.

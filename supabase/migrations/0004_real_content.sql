@@ -10,9 +10,8 @@
 --     (ghi đè chữ đang có của đúng 3 khoá này; `about` và `contact` giữ nguyên).
 --   - games: upsert theo slug game-1..game-5, chỉ đổi title/description
 --     (giữ nguyên screenshot_path, video_url, sort_order, published đang có).
---   - downloads: cập nhật row mới nhất; nếu bảng trống thì chèn 1 row.
---     windows_url KHÔNG bị ghi đè — chủ dự án dán link tải thật vào /admin
---     khi bản phát hànhpublic sẵn sàng.
+--   - downloads: bản 0.4.1 + windows_url là asset GitHub Release ĐÃ XÁC MINH
+--     (tải về thật, 92.496.890 byte, SHA-256 tính từ tệp tải về).
 --   - guides: upsert 2 bài hướng dẫn theo slug.
 --
 -- Nguồn sự thật: tài liệu dự án EduGame Studio (STATUS/ROADMAP/ARCHITECTURE/
@@ -65,35 +64,39 @@ on conflict (slug) do update
   set title       = excluded.title,
       description = excluded.description;
 
--- ---------- downloads: 0.4.0 ----------
--- Chủ dự án dán windows_url thật qua /admin khi có link tải công khai.
-update public.downloads
-set version      = '0.4.0',
-    file_size    = '87,9 MB (92.241.504 byte)',
-    release_date = date '2026-11-04',
-    system_requirements = jsonb_build_object(
-      'vi', 'Windows 10 hoặc 11, bản 64-bit (x64) — chưa có bản ARM64. Bộ cài ~88 MB. Muốn dùng AI cục bộ: máy tối thiểu 4 GB RAM cho model 2B hoặc 8 GB cho model 4B, cộng vài GB dung lượng trống (Qwen3.5-2B ~1,2 GB + runtime ~19 MB). Bộ cài chưa được ký số nên SmartScreen có thể cảnh báo; hãy đối chiếu SHA-256 trước khi chạy.',
-      'en', 'Windows 10 or 11, 64-bit (x64) — no ARM64 build yet. The installer is about 88 MB. For local AI: 4 GB RAM minimum for the 2B model or 8 GB for the 4B model, plus a few GB of free disk (Qwen3.5-2B ~1.2 GB + runtime ~19 MB). The installer is not code-signed, so SmartScreen may warn; verify the SHA-256 before running it.'
-    ),
-    release_notes = jsonb_build_object(
-      'vi', '0.4.0 (04/11/2026): logo mới cho bộ cài, shortcut và cửa sổ; trang Giáo án chia hai cột với khung chat trả lời kèm trích dẫn nguồn; “Chòm sao tri thức” — bảng sao 3D kéo thả cho Ghép cặp kiến thức; cỡ chữ và màu bị khoá sàn (tối thiểu 11 px, tương phản 4,5:1) ở cả giao diện sáng và tối. Bản đóng gói này chưa được cài thử trên máy sạch.',
-      'en', '0.4.0 (Nov 4, 2026): new logo across installer, shortcut and window; the Lessons page split into two columns with a chat panel that answers with source citations; “Knowledge Constellation” — a draggable 3D star board for Knowledge Matching; type size and colour contrast floored at 11 px and 4.5:1 in both light and dark themes. This packaged build has not been installed on a clean machine yet.'
-    ),
-    updated_at = now()
-where id = (select id from public.downloads order by updated_at desc limit 1);
+-- ---------- downloads: 0.4.1 (link tải thật từ GitHub Releases) ----------
+-- Asset đã xác minh: tải về 92.496.890 byte, SHA-256 khớp một bản ghi dưới.
+do $$
+declare
+  v_url   text  := 'https://github.com/vananz123/edu-game-ai/releases/download/v0.4.1/EduGame-Studio-Setup-0.4.1.exe';
+  v_req   jsonb := jsonb_build_object(
+    'vi', $reqvi$Windows 10 hoặc 11, bản 64-bit (x64) — chưa có bản ARM64. Bộ cài 88,2 MB, cài cho từng người dùng, không cần quyền quản trị. Muốn dùng AI cục bộ: tối thiểu 4 GB RAM cho model 2B hoặc 8 GB cho model 4B, cộng vài GB dung lượng trống (Qwen3.5-2B ~1,2 GB + runtime ~19 MB). Ứng dụng chưa có chứng chỉ ký số nên SmartScreen sẽ cảnh báo — bấm More info → Run anyway sau khi đối chiếu SHA-256: 636bc0042611516987c3fbfc48c61f1d65df0935ab5a17f31fb39fb80fe81741.$reqvi$,
+    'en', $reqen$Windows 10 or 11, 64-bit (x64) — no ARM64 build yet. The installer is 88.2 MB, installs per user and needs no administrator rights. For local AI: 4 GB RAM minimum for the 2B model or 8 GB for the 4B model, plus a few GB of free disk (Qwen3.5-2B ~1.2 GB + runtime ~19 MB). The app has no code-signing certificate, so SmartScreen will warn — choose More info → Run anyway after verifying the SHA-256: 636bc0042611516987c3fbfc48c61f1d65df0935ab5a17f31fb39fb80fe81741.$reqen$
+  );
+  v_notes jsonb := jsonb_build_object(
+    'vi', $nvi$0.4.1 (05/11/2026): bản sắc thương hiệu mới (mascot cú tốt nghiệp, màu thẻ theo 5 thể loại, nhãn Title Case); animation thuần CSS cùng pháo hoa chạy offline; dark mode được phân tầng bề mặt và sửa lỗi hộp hướng dẫn gần như không đọc được; chữ kéo về sàn 11 px; wizard bỏ ALLCAPS. Bản build đạt 87/87 unit test và 11/11 kiểm tra trên binary đóng gói. Chưa ký số, chưa cài thử trên máy sạch ngắt mạng. Ghi chú đầy đủ ở trang phát hành v0.4.1 trên GitHub.$nvi$,
+    'en', $nen$0.4.1 (Nov 5, 2026): new brand identity (graduation-owl mascot, per-genre game card colours, Title Case labels); pure-CSS animations plus offline confetti; dark mode gains surface elevation tiers and a fix for help boxes that were nearly unreadable; type back at the 11 px floor; wizard drops ALLCAPS. The build passes 87/87 unit tests and 11/11 packaged-binary checks. Not code-signed and never yet installed on an offline clean machine. Full notes are on the v0.4.1 GitHub release page.$nen$
+  );
+begin
+  update public.downloads
+  set version             = '0.4.1',
+      windows_url         = v_url,
+      file_size           = '88,2 MB (92.496.890 byte)',
+      release_date        = date '2026-11-05',
+      system_requirements = v_req,
+      release_notes       = v_notes,
+      published           = true,
+      updated_at          = now()
+  where id = (select id from public.downloads order by updated_at desc limit 1);
 
-insert into public.downloads (version, windows_url, file_size, release_date, system_requirements, release_notes, published)
-select '0.4.0', '', '87,9 MB (92.241.504 byte)', date '2026-11-04',
-  jsonb_build_object(
-    'vi', 'Windows 10 hoặc 11, bản 64-bit (x64) — chưa có bản ARM64. Bộ cài ~88 MB. Muốn dùng AI cục bộ: máy tối thiểu 4 GB RAM cho model 2B hoặc 8 GB cho model 4B, cộng vài GB dung lượng trống (Qwen3.5-2B ~1,2 GB + runtime ~19 MB). Bộ cài chưa được ký số nên SmartScreen có thể cảnh báo; hãy đối chiếu SHA-256 trước khi chạy.',
-    'en', 'Windows 10 or 11, 64-bit (x64) — no ARM64 build yet. The installer is about 88 MB. For local AI: 4 GB RAM minimum for the 2B model or 8 GB for the 4B model, plus a few GB of free disk (Qwen3.5-2B ~1.2 GB + runtime ~19 MB). The installer is not code-signed, so SmartScreen may warn; verify the SHA-256 before running it.'
-  ),
-  jsonb_build_object(
-    'vi', '0.4.0 (04/11/2026): logo mới cho bộ cài, shortcut và cửa sổ; trang Giáo án chia hai cột với khung chat trả lời kèm trích dẫn nguồn; “Chòm sao tri thức” — bảng sao 3D kéo thả cho Ghép cặp kiến thức; cỡ chữ và màu bị khoá sàn (tối thiểu 11 px, tương phản 4,5:1) ở cả giao diện sáng và tối. Bản đóng gói này chưa được cài thử trên máy sạch.',
-    'en', '0.4.0 (Nov 4, 2026): new logo across installer, shortcut and window; the Lessons page split into two columns with a chat panel that answers with source citations; “Knowledge Constellation” — a draggable 3D star board for Knowledge Matching; type size and colour contrast floored at 11 px and 4.5:1 in both light and dark themes. This packaged build has not been installed on a clean machine yet.'
-  ),
-  true
-where not exists (select 1 from public.downloads);
+  if not found then
+    insert into public.downloads
+      (version, windows_url, file_size, release_date, system_requirements, release_notes, published)
+    values
+      ('0.4.1', v_url, '88,2 MB (92.496.890 byte)', date '2026-11-05', v_req, v_notes, true);
+  end if;
+end
+$$;
 
 -- ---------- guides: 2 bài hướng dẫn thật ----------
 insert into public.guides (slug, title, summary, body_md, category, sort_order, published) values
@@ -111,6 +114,12 @@ insert into public.guides (slug, title, summary, body_md, category, sort_order, 
     'vi', $mdvi_a$## Bạn cần gì
 
 EduGame Studio chạy trên Windows 10 hoặc 11, bản 64-bit. Chưa có bản ARM64.
+
+## Cài bộ cài
+
+Chạy tệp `EduGame-Studio-Setup-<version>.exe` vừa tải. Trình cài NSIS đặt cho *từng người dùng* và không đòi quyền quản trị, nên cài được cả trên máy trường học bị khoá.
+
+Ứng dụng **chưa có chứng chỉ ký số**, vì vậy SmartScreen thường hiện cảnh báo. Nếu bạn tin tệp lấy từ trang phát hành chính thức, bấm *More info → Run anyway*. Muốn chắc chắn hơn, so SHA-256 của tệp với giá trị ghi ở mục "Cấu hình yêu cầu" trên trang Tải xuống.
 
 ## Năm bước tạo game
 
@@ -133,6 +142,12 @@ $mdvi_a$,
     'en', $mden_a$## What you need
 
 EduGame Studio runs on Windows 10 or 11, 64-bit. There is no ARM64 build yet.
+
+## Installing
+
+Run the `EduGame-Studio-Setup-<version>.exe` you just downloaded. The NSIS installer installs **per user** and asks for no administrator rights, so it works on school machines that lock down admin access.
+
+The app **has no code-signing certificate**, so SmartScreen usually warns you. If you trust that the file came from the official release page, choose *More info → Run anyway*. To be sure, compare the file's SHA-256 with the value listed under "System requirements" on the Download page.
 
 ## The five steps
 
